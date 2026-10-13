@@ -115,7 +115,7 @@ a:focus-visible {
 
 .home-hero h1 {
   max-width: 1050px;
-  font-size: clamp(3.25rem, 7.2vw, 7.5rem);
+  font-size: clamp(3rem, 6vw, 6rem);
 }
 
 .home-hero p {
@@ -143,7 +143,7 @@ a:focus-visible {
 }
 
 .section-heading h2 {
-  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-size: clamp(2.3rem, 4vw, 4rem);
 }
 
 .section-heading span {
@@ -223,7 +223,7 @@ a:focus-visible {
 
 .assignment__title h2 {
   max-width: 520px;
-  font-size: clamp(2rem, 3.2vw, 3.75rem);
+  font-size: clamp(1.8rem, 2.6vw, 3rem);
 }
 
 .assignment__title span {
@@ -270,7 +270,7 @@ a:focus-visible {
 .detail-hero h1 {
   width: min(100%, calc(var(--content-width) - (2 * var(--page-padding))));
   margin: 0 auto;
-  font-size: clamp(3.4rem, 8vw, 8rem);
+  font-size: clamp(3rem, 6.5vw, 6.5rem);
 }
 
 .back-link {
@@ -369,7 +369,7 @@ a:focus-visible {
   }
 
   .home-hero h1 {
-    font-size: clamp(3rem, 15vw, 4.5rem);
+    font-size: clamp(2.8rem, 13vw, 4rem);
   }
 
   .section-heading {
@@ -418,11 +418,11 @@ a:focus-visible {
 /* Assignment 1 case study */
 .project-hero {
   position: relative;
-  min-height: 92vh;
+  min-height: 78vh;
   display: flex;
   align-items: flex-end;
   overflow: hidden;
-  padding: clamp(116px, 13vw, 190px) var(--page-padding) clamp(44px, 6vw, 84px);
+  padding: clamp(106px, 11vw, 150px) var(--page-padding) clamp(40px, 5vw, 64px);
   background: var(--ink);
   color: #fff;
 }
@@ -456,20 +456,20 @@ a:focus-visible {
 
 .project-hero h1 {
   margin-top: 22px;
-  font-size: clamp(4.5rem, 11vw, 11rem);
+  font-size: clamp(3.8rem, 8vw, 8rem);
 }
 
 .project-hero__intro {
   max-width: 510px;
   margin-top: clamp(28px, 4vw, 48px);
   color: rgba(255, 255, 255, 0.72);
-  font-size: clamp(1.15rem, 1.7vw, 1.55rem);
+  font-size: clamp(1.05rem, 1.4vw, 1.35rem);
   font-weight: 300;
   line-height: 1.35;
 }
 
 .project-hero__media {
-  height: min(68vh, 740px);
+  height: min(58vh, 620px);
   margin: 0;
   overflow: hidden;
   border-radius: 12px;
@@ -486,20 +486,20 @@ a:focus-visible {
   display: grid;
   grid-template-columns: minmax(260px, 0.85fr) minmax(280px, 1fr);
   gap: clamp(40px, 7vw, 110px);
-  padding: clamp(90px, 12vw, 170px) var(--page-padding);
+  padding: clamp(72px, 9vw, 120px) var(--page-padding);
 }
 
 .project-overview h2,
 .project-section h2,
 .code-section h2 {
   margin-top: 18px;
-  font-size: clamp(3rem, 6vw, 6.5rem);
+  font-size: clamp(2.4rem, 4.2vw, 4.5rem);
 }
 
 .project-overview__text {
   align-self: end;
   max-width: 640px;
-  font-size: clamp(1.35rem, 2.1vw, 2.25rem);
+  font-size: clamp(1.15rem, 1.7vw, 1.65rem);
   font-weight: 300;
   letter-spacing: -0.035em;
   line-height: 1.2;
@@ -523,7 +523,7 @@ a:focus-visible {
 }
 
 .project-facts dt {
-  font-size: clamp(2.6rem, 5vw, 5.2rem);
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
   font-weight: 300;
   letter-spacing: -0.06em;
   line-height: 1;
@@ -538,7 +538,7 @@ a:focus-visible {
 
 .project-section,
 .code-section {
-  padding: clamp(80px, 11vw, 155px) var(--page-padding);
+  padding: clamp(64px, 8vw, 110px) var(--page-padding);
 }
 
 .project-section--paper {
@@ -564,7 +564,7 @@ a:focus-visible {
   grid-template-columns: 80px 1fr;
   gap: clamp(18px, 3vw, 44px);
   align-items: start;
-  margin-bottom: clamp(46px, 7vw, 96px);
+  margin-bottom: clamp(40px, 5vw, 70px);
   padding-top: 20px;
   border-top: 1px solid var(--line);
 }
@@ -766,7 +766,7 @@ a:focus-visible {
 
 .question__body h3 {
   margin: 0;
-  font-size: clamp(1.6rem, 3vw, 3rem);
+  font-size: clamp(1.5rem, 2.4vw, 2.35rem);
   font-weight: 400;
   letter-spacing: -0.04em;
   line-height: 1.08;
@@ -824,7 +824,7 @@ a:focus-visible {
   }
 
   .project-hero h1 {
-    font-size: clamp(4.5rem, 25vw, 7rem);
+    font-size: clamp(3.8rem, 18vw, 5.2rem);
   }
 
   .project-hero__media {
@@ -857,7 +857,7 @@ a:focus-visible {
   .project-section h2,
   .code-section h2,
   .project-overview h2 {
-    font-size: clamp(2.8rem, 15vw, 4.5rem);
+    font-size: clamp(2.3rem, 11vw, 3.4rem);
   }
 
   .question__body {
