@@ -1,18 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111312" />
 
     <title>Example Student's HCDE 439 Physical Computing Page!</title>
 
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
-  <body>
-    <h1>Example Student's Assignment 1!</h1>
-    <div class="header">
-      <img src="red-panda.jpg" />
-      <p>Here is all the documentation for assignment 1!</p>
-    </div>
+  <body class="detail-page">
+    <main>
+      <section class="detail-hero" aria-labelledby="page-title">
+        <a class="back-link" href="index.html" aria-label="Back to the homepage">←</a>
+        <h1 id="page-title">Example Student's Assignment 1!</h1>
+      </section>
+
+      <section class="detail-content">
+        <div class="detail-content__media">
+          <img src="red-panda.jpg" alt="Red panda" />
+        </div>
+        <div class="detail-content__copy">
+          <p>Here is all the documentation for assignment 1!</p>
+        </div>
+      </section>
+    </main>
   </body>
 </html>

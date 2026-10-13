@@ -1,47 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111312" />
 
     <title>Hana Li's HCDE 439 Physical Computing Page!</title>
 
     <link href="style.css" rel="stylesheet" />
   </head>
-  <body>
-    <h1>Hana Li's HCDE 439 Physical Computing Page!</h1>
+  <body class="home-page">
+    <main>
+      <section class="home-hero" aria-labelledby="page-title">
+        <img class="home-hero__image" src="profile.jpeg" alt="Portrait of Hana Li" />
+        <div class="home-hero__shade" aria-hidden="true"></div>
+        <div class="home-hero__content">
+          <h1 id="page-title">Hana Li's HCDE 439 Physical Computing Page!</h1>
+          <p>
+            My name is Hana Li! I'm an HCDE senior student. I'm excited about physical computing and want to explore how technology can be used to create interactive experiences.
+          </p>
+        </div>
+      </section>
 
-    <div class="header">
-      <img src="profile.jpeg" />
-      <p>
-        My name is Hana Li! I'm an HCDE senior student. I'm excited about physical computing and want to explore how technology can be used to create interactive experiences.
-      </p>
-    </div>
+      <section class="assignments" aria-labelledby="assignments-title">
+        <div class="section-heading">
+          <h2 id="assignments-title">Assignments</h2>
+          <span aria-hidden="true">01—03</span>
+        </div>
 
-    <div class="grid">
-      <div class="assignment">
-        <a href="a1.html">
-          <h2>Assignment 1: Blink!</h2>
-          <img src="red-panda.jpg" />
-        </a>
-        <p>Assignment 1 was a panda!</p>
-      </div>
+        <div class="grid">
+          <article class="assignment assignment--primary">
+            <a href="a1.html">
+              <div class="assignment__media">
+                <img src="red-panda.jpg" alt="Red panda" />
+              </div>
+              <div class="assignment__title">
+                <h2>Assignment 1: Blink!</h2>
+                <span aria-hidden="true">↗</span>
+              </div>
+            </a>
+            <p>Assignment 1 was a panda!</p>
+          </article>
 
-      <div class="assignment">
-        <a href="a2.html">
-          <h2>Assignment 2: Fade!</h2>
-          <img src="red-panda.jpg" />
-        </a>
-        <p>Assignment 2 was a panda!</p>
-      </div>
+          <article class="assignment assignment--dark">
+            <a href="a2.html">
+              <div class="assignment__media">
+                <img src="red-panda.jpg" alt="Red panda" />
+              </div>
+              <div class="assignment__title">
+                <h2>Assignment 2: Fade!</h2>
+                <span aria-hidden="true">↗</span>
+              </div>
+            </a>
+            <p>Assignment 2 was a panda!</p>
+          </article>
 
-      <div class="assignment">
-        <a href="a3.html">
-          <h2>Assignment 3: Pulse!</h2>
-          <img src="red-panda.jpg" />
-        </a>
-        <p>Assignment 2 was a panda!</p>
-      </div>
-    </div>
+          <article class="assignment assignment--wide">
+            <a href="a3.html">
+              <div class="assignment__media">
+                <img src="red-panda.jpg" alt="Red panda" />
+              </div>
+              <div class="assignment__title">
+                <h2>Assignment 3: Pulse!</h2>
+                <span aria-hidden="true">↗</span>
+              </div>
+            </a>
+            <p>Assignment 2 was a panda!</p>
+          </article>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
