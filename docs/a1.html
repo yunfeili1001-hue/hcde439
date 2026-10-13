@@ -44,7 +44,7 @@
         <div class="media-copy media-copy--wide">
           <figure class="project-figure">
             <img src="a1-schematic.png" alt="Hand-drawn schematic and resistor calculations for three LEDs" />
-            <figcaption>Each LED has its own Arduino pin and current-limiting resistor. Correction: GND is 0 V; the 5 V used in the calculations is the Arduino HIGH output, not the ground voltage.</figcaption>
+            <figcaption>Each LED is controlled by a separate Arduino pin and uses a current-limiting resistor. D9 and D10 use 220 Ω, while D11 uses 100 Ω. GND is 0 V, and 5 V represents the Arduino HIGH output.</figcaption>
           </figure>
           <div class="copy-stack">
             <p>The red and green LEDs have an approximate forward-voltage drop of 1.8 V, while the blue LED has an approximate forward-voltage drop of 3.3 V. The target current from the course slide is 20 mA.</p>
