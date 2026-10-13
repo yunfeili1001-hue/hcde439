@@ -4,25 +4,201 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#111312" />
-
-    <title>Example Student's HCDE 439 Physical Computing Page!</title>
-
-    <link href="style.css?v=3" rel="stylesheet" type="text/css" />
+    <title>Hana Li's Assignment 1: Blink!</title>
+    <link href="style.css?v=4" rel="stylesheet" type="text/css" />
   </head>
-  <body class="detail-page">
+  <body class="detail-page a1-page">
     <main>
-      <section class="detail-hero" aria-labelledby="page-title">
+      <section class="project-hero" aria-labelledby="page-title">
         <a class="back-link" href="index.html" aria-label="Back to the homepage">←</a>
-        <h1 id="page-title">Example Student's Assignment 1!</h1>
+        <div class="project-hero__inner">
+          <div class="project-hero__copy">
+            <p class="eyebrow">HCDE 439 · Assignment 01</p>
+            <h1 id="page-title">Blink!</h1>
+            <p class="project-hero__intro">Three LEDs, one repeating sequence, and a first exploration of digital output with an Arduino Uno.</p>
+          </div>
+          <figure class="project-hero__media">
+            <img src="a1-circuit.jpg" alt="Arduino Uno connected to red, green, and blue LEDs on a breadboard" />
+          </figure>
+        </div>
       </section>
 
-      <section class="detail-content">
-        <div class="detail-content__media">
-          <img src="red-panda.jpg" alt="Red panda" />
+      <section class="project-overview" aria-labelledby="overview-title">
+        <div>
+          <p class="eyebrow eyebrow--dark">Project overview</p>
+          <h2 id="overview-title">Three colors.<br />One at a time.</h2>
         </div>
-        <div class="detail-content__copy">
-          <p>Here is all the documentation for assignment 1!</p>
+        <p class="project-overview__text">I built a circuit with red, green, and blue LEDs connected to digital pins 9, 10, and 11. The Arduino turns on each LED for one second while keeping the other two off, then repeats the sequence.</p>
+        <dl class="project-facts">
+          <div><dt>03</dt><dd>independently controlled LEDs</dd></div>
+          <div><dt>01 s</dt><dd>on time for each LED</dd></div>
+          <div><dt>03 s</dt><dd>for one complete sequence</dd></div>
+        </dl>
+      </section>
+
+      <section class="project-section project-section--paper" aria-labelledby="schematic-title">
+        <div class="project-section__heading">
+          <p class="section-number">01</p>
+          <div><p class="eyebrow eyebrow--dark">Plan</p><h2 id="schematic-title">Schematic &amp; calculations</h2></div>
         </div>
+        <div class="media-copy media-copy--wide">
+          <figure class="project-figure">
+            <img src="a1-schematic.png" alt="Hand-drawn schematic and resistor calculations for three LEDs" />
+            <figcaption>Each LED has its own Arduino pin and current-limiting resistor. Correction: GND is 0 V; the 5 V used in the calculations is the Arduino HIGH output, not the ground voltage.</figcaption>
+          </figure>
+          <div class="copy-stack">
+            <p>The red and green LEDs have an approximate forward-voltage drop of 1.8 V, while the blue LED has an approximate forward-voltage drop of 3.3 V. The target current from the course slide is 20 mA.</p>
+            <div class="equations" aria-label="Resistor calculations">
+              <p><span>Red</span> R = (5 − 1.8) / 0.020 = 160 Ω</p>
+              <p><span>Green</span> R = (5 − 1.8) / 0.020 = 160 Ω</p>
+              <p><span>Blue</span> R = (5 − 3.3) / 0.020 = 85 Ω</p>
+            </div>
+            <p class="note">I used a 200 Ω resistor for each LED because that was the available value. The resulting current is approximately 16 mA for the red and green LEDs and 8.5 mA for the blue LED, which keeps the LEDs below the 20 mA target.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="project-section project-section--dark" aria-labelledby="circuit-title">
+        <div class="project-section__heading">
+          <p class="section-number">02</p>
+          <div><p class="eyebrow">Build</p><h2 id="circuit-title">Physical circuit</h2></div>
+        </div>
+        <div class="media-copy">
+          <figure class="project-figure project-figure--dark">
+            <img src="a1-circuit.jpg" alt="Completed Arduino Uno breadboard circuit with three LEDs" />
+            <figcaption>The completed circuit on an ELEGOO Uno R3 and breadboard.</figcaption>
+          </figure>
+          <div class="copy-stack">
+            <p>Digital pins D9, D10, and D11 each connect to one resistor and one LED. The other side of every LED connects to the Arduino ground, creating three separately controlled branches.</p>
+            <ul class="connection-list">
+              <li><span>D9</span>200 Ω → red LED → GND</li>
+              <li><span>D10</span>200 Ω → green LED → GND</li>
+              <li><span>D11</span>200 Ω → blue LED → GND</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="project-section project-section--paper" aria-labelledby="operation-title">
+        <div class="project-section__heading">
+          <p class="section-number">03</p>
+          <div><p class="eyebrow eyebrow--dark">Test</p><h2 id="operation-title">Circuit operation</h2></div>
+        </div>
+        <div class="media-copy media-copy--operation">
+          <figure class="project-figure project-figure--gif">
+            <img src="a1-blink.gif" alt="Red, green, and blue LEDs blinking one at a time" />
+            <figcaption>The red, green, and blue LEDs blink in a repeating sequence.</figcaption>
+          </figure>
+          <div class="copy-stack">
+            <p>Only one LED is on at a time. The sequence begins with red, moves to green, then moves to blue. Each state lasts for one second before the loop starts again.</p>
+            <ol class="sequence-list">
+              <li><span>0–1 s</span>Red LED on</li>
+              <li><span>1–2 s</span>Green LED on</li>
+              <li><span>2–3 s</span>Blue LED on</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="code-section" aria-labelledby="code-title">
+        <div class="code-section__intro">
+          <p class="eyebrow">Firmware</p>
+          <h2 id="code-title">The code</h2>
+          <p>Each output line has a short comment above it, and the three pins are controlled independently inside the repeating loop.</p>
+        </div>
+        <pre class="code-block"><code><span class="code-comment">// Assign digital pin 9 to LED 1.</span>
+#define PIN_LED1 9
+
+<span class="code-comment">// Assign digital pin 10 to LED 2.</span>
+#define PIN_LED2 10
+
+<span class="code-comment">// Assign digital pin 11 to LED 3.</span>
+#define PIN_LED3 11
+
+<span class="code-comment">// Configure the Arduino pins when the program starts.</span>
+void setup() {
+  <span class="code-comment">// Set the LED 1 pin as an output.</span>
+  pinMode(PIN_LED1, OUTPUT);
+
+  <span class="code-comment">// Set the LED 2 pin as an output.</span>
+  pinMode(PIN_LED2, OUTPUT);
+
+  <span class="code-comment">// Set the LED 3 pin as an output.</span>
+  pinMode(PIN_LED3, OUTPUT);
+}
+
+<span class="code-comment">// Repeat the blinking pattern continuously.</span>
+void loop() {
+  <span class="code-comment">// Turn on LED 1.</span>
+  digitalWrite(PIN_LED1, HIGH);
+  <span class="code-comment">// Turn off LED 2.</span>
+  digitalWrite(PIN_LED2, LOW);
+  <span class="code-comment">// Turn off LED 3.</span>
+  digitalWrite(PIN_LED3, LOW);
+  <span class="code-comment">// Keep this state for one second.</span>
+  delay(1000);
+
+  <span class="code-comment">// Turn off LED 1.</span>
+  digitalWrite(PIN_LED1, LOW);
+  <span class="code-comment">// Turn on LED 2.</span>
+  digitalWrite(PIN_LED2, HIGH);
+  <span class="code-comment">// Turn off LED 3.</span>
+  digitalWrite(PIN_LED3, LOW);
+  <span class="code-comment">// Keep this state for one second.</span>
+  delay(1000);
+
+  <span class="code-comment">// Turn off LED 1.</span>
+  digitalWrite(PIN_LED1, LOW);
+  <span class="code-comment">// Turn off LED 2.</span>
+  digitalWrite(PIN_LED2, LOW);
+  <span class="code-comment">// Turn on LED 3.</span>
+  digitalWrite(PIN_LED3, HIGH);
+  <span class="code-comment">// Keep this state for one second.</span>
+  delay(1000);
+}</code></pre>
+      </section>
+
+      <section class="project-section project-section--paper questions" aria-labelledby="questions-title">
+        <div class="project-section__heading">
+          <p class="section-number">04</p>
+          <div><p class="eyebrow eyebrow--dark">Reflection</p><h2 id="questions-title">Questions</h2></div>
+        </div>
+
+        <article class="question question--graph">
+          <div class="question__number">01</div>
+          <div class="question__body">
+            <h3>Voltage across the LEDs over time</h3>
+            <p>The red and green LEDs have an approximate voltage drop of 1.8 V, while the blue LED has an approximate voltage drop of 3.3 V. When an LED is off, the voltage across it is approximately 0 V. The three-second pattern repeats continuously.</p>
+            <figure class="project-figure project-figure--graph">
+              <img src="a1-voltage-graph.png" alt="Graph of voltage across the red, green, and blue LEDs over six seconds" />
+              <figcaption>Voltage across each LED as the one-second sequence repeats.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="question">
+          <div class="question__number">02</div>
+          <div class="question__body">
+            <h3>How many LEDs could you blink independently? How much current would that draw?</h3>
+            <p>The Arduino Uno has 14 digital I/O pins, so theoretically I could control 14 LEDs independently using one pin for each LED. If every LED drew 20 mA and all 14 were on at the same time, the total current would be 14 × 20 mA = 280 mA. This exceeds the microcontroller's 200 mA total current limit, so it would not be safe without reducing the current or using an external LED driver. In my current circuit, only one LED is on at a time, so the maximum LED current is approximately 16 mA.</p>
+          </div>
+        </article>
+
+        <article class="question">
+          <div class="question__number">03</div>
+          <div class="question__body">
+            <h3>How fast do the LEDs need to blink before they appear continuously lit?</h3>
+            <p>At approximately 50 Hz, using 10 ms on and 10 ms off, the LED appears continuously lit and the blinking is no longer clearly visible. The exact threshold can vary depending on the observer, LED brightness, and lighting conditions.</p>
+          </div>
+        </article>
+
+        <article class="question">
+          <div class="question__number">04</div>
+          <div class="question__body">
+            <h3>AI use and reflection</h3>
+            <p>I used ChatGPT to help interpret the assignment requirements, check resistor calculations, troubleshoot the Arduino setup, improve code comments, and organize the documentation page. AI was helpful for explaining unfamiliar concepts and identifying possible errors, but I checked the calculations against the course slides and built and tested the physical circuit myself.</p>
+          </div>
+        </article>
       </section>
     </main>
   </body>
