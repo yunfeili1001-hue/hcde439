@@ -53,7 +53,13 @@
               <p><span>Green</span> R = (5 − 1.8) / 0.020 = 160 Ω</p>
               <p><span>Blue</span> R = (5 − 3.3) / 0.020 = 85 Ω</p>
             </div>
-            <p class="note">I used 220 Ω resistors for the red and green LEDs and a 100 Ω resistor for the blue LED. The resulting current is approximately 14.5 mA for the red and green LEDs and 17 mA for the blue LED, which keeps all three LEDs below the 20 mA target.</p>
+            <p class="note">I used 220 Ω resistors for the red and green LEDs and a 100 Ω resistor for the blue LED. The actual current for each branch is:</p>
+            <div class="equations" aria-label="Actual LED current calculations">
+              <p><span>Red</span> I = (5 − 1.8) / 220 = 14.5 mA</p>
+              <p><span>Green</span> I = (5 − 1.8) / 220 = 14.5 mA</p>
+              <p><span>Blue</span> I = (5 − 3.3) / 100 = 17 mA</p>
+              <p><span>Maximum</span> I<sub>max</sub> = 17 mA because only one LED is on at a time</p>
+            </div>
           </div>
         </div>
       </section>
