@@ -53,7 +53,7 @@
               <p><span>Green</span> R = (5 − 1.8) / 0.020 = 160 Ω</p>
               <p><span>Blue</span> R = (5 − 3.3) / 0.020 = 85 Ω</p>
             </div>
-            <p class="note">I used a 200 Ω resistor for each LED because that was the available value. The resulting current is approximately 16 mA for the red and green LEDs and 8.5 mA for the blue LED, which keeps the LEDs below the 20 mA target.</p>
+            <p class="note">I used 220 Ω resistors for the red and green LEDs and a 100 Ω resistor for the blue LED. The resulting current is approximately 14.5 mA for the red and green LEDs and 17 mA for the blue LED, which keeps all three LEDs below the 20 mA target.</p>
           </div>
         </div>
       </section>
@@ -71,9 +71,9 @@
           <div class="copy-stack">
             <p>Digital pins D9, D10, and D11 each connect to one resistor and one LED. The other side of every LED connects to the Arduino ground, creating three separately controlled branches.</p>
             <ul class="connection-list">
-              <li><span>D9</span>200 Ω → red LED → GND</li>
-              <li><span>D10</span>200 Ω → green LED → GND</li>
-              <li><span>D11</span>200 Ω → blue LED → GND</li>
+              <li><span>D9</span>220 Ω → red LED → GND</li>
+              <li><span>D10</span>220 Ω → green LED → GND</li>
+              <li><span>D11</span>100 Ω → blue LED → GND</li>
             </ul>
           </div>
         </div>
@@ -180,7 +180,7 @@ void loop() {
           <div class="question__number">02</div>
           <div class="question__body">
             <h3>How many LEDs could you blink independently? How much current would that draw?</h3>
-            <p>The Arduino Uno has 14 digital I/O pins, so theoretically I could control 14 LEDs independently using one pin for each LED. If every LED drew 20 mA and all 14 were on at the same time, the total current would be 14 × 20 mA = 280 mA. This exceeds the microcontroller's 200 mA total current limit, so it would not be safe without reducing the current or using an external LED driver. In my current circuit, only one LED is on at a time, so the maximum LED current is approximately 16 mA.</p>
+            <p>The Arduino Uno has 14 digital I/O pins, so theoretically I could control 14 LEDs independently using one pin for each LED. If every LED drew 20 mA and all 14 were on at the same time, the total current would be 14 × 20 mA = 280 mA. This exceeds the microcontroller's 200 mA total current limit, so it would not be safe without reducing the current or using an external LED driver. In my current circuit, only one LED is on at a time, so the maximum LED current is approximately 17 mA.</p>
           </div>
         </article>
 
