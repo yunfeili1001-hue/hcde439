@@ -155,7 +155,7 @@ a:focus-visible {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(18px, 2.2vw, 32px);
 }
 
@@ -170,20 +170,19 @@ a:focus-visible {
 }
 
 .assignment--primary {
-  grid-column: span 7;
+  grid-column: auto;
 }
 
 .assignment--dark {
-  grid-column: span 5;
+  grid-column: auto;
   background: var(--ink);
   color: #fff;
   border-color: transparent;
 }
 
 .assignment--wide {
-  grid-column: 3 / span 8;
-  min-height: 0;
-  margin-top: clamp(12px, 4vw, 54px);
+  grid-column: auto;
+  margin-top: 0;
 }
 
 .assignment a {
@@ -339,14 +338,8 @@ a:focus-visible {
     min-height: 780px;
   }
 
-  .assignment--primary,
-  .assignment--dark,
-  .assignment--wide {
-    grid-column: 1 / -1;
-  }
-
-  .assignment--wide {
-    margin-top: 0;
+  .grid {
+    grid-template-columns: 1fr;
   }
 
   .detail-content {
