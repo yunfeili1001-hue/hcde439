@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
+  <title id="title">Three independently controlled LEDs connected to Arduino pins 9, 10, and 11</title>
+  <desc id="description">Pin 9 connects through a 220 ohm resistor and red LED to ground. Pin 10 connects through a 220 ohm resistor and green LED to ground. Pin 11 connects through a 100 ohm resistor and blue LED to ground.</desc>
+  <rect width="1600" height="900" fill="#f6f3e8"/>
+  <g fill="none" stroke="#171918" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1320 180V700"/>
+    <path d="M1260 700h120M1285 730h70M1310 760h20"/>
+
+    <path d="M260 250H420"/>
+    <path d="M420 250l30-40 50 80 50-80 50 80 50-80 30 40h150"/>
+    <path d="M810 250h85"/>
+    <path d="M895 200v100l105-50zM1000 200v100"/>
+    <path d="M1000 250h320"/>
+
+    <path d="M260 450H420"/>
+    <path d="M420 450l30-40 50 80 50-80 50 80 50-80 30 40h150"/>
+    <path d="M810 450h85"/>
+    <path d="M895 400v100l105-50zM1000 400v100"/>
+    <path d="M1000 450h320"/>
+
+    <path d="M260 650H420"/>
+    <path d="M420 650l30-40 50 80 50-80 50 80 50-80 30 40h150"/>
+    <path d="M810 650h85"/>
+    <path d="M895 600v100l105-50zM1000 600v100"/>
+    <path d="M1000 650h320"/>
+
+    <path d="M925 185l45-45M970 140l-4 31M970 140l-31 4"/>
+    <path d="M955 215l45-45M1000 170l-4 31M1000 170l-31 4"/>
+    <path d="M925 385l45-45M970 340l-4 31M970 340l-31 4"/>
+    <path d="M955 415l45-45M1000 370l-4 31M1000 370l-31 4"/>
+    <path d="M925 585l45-45M970 540l-4 31M970 540l-31 4"/>
+    <path d="M955 615l45-45M1000 570l-4 31M1000 570l-31 4"/>
+  </g>
+
+  <g font-family="Inter, Arial, sans-serif" fill="#171918">
+    <text x="100" y="98" font-size="30" letter-spacing="4">ARDUINO UNO · DIGITAL OUTPUTS</text>
+    <text x="100" y="145" font-size="25" fill="#666964">HIGH ≈ 5 V</text>
+
+    <g font-size="38" font-weight="600">
+      <text x="115" y="264">D9</text>
+      <text x="105" y="464">D10</text>
+      <text x="105" y="664">D11</text>
+    </g>
+
+    <g font-size="30">
+      <text x="485" y="175">R1 · 220 Ω</text>
+      <text x="485" y="375">R2 · 220 Ω</text>
+      <text x="485" y="575">R3 · 100 Ω</text>
+      <text x="845" y="340" fill="#bd2f29">RED LED · V<tspan baseline-shift="sub" font-size="20">F</tspan> ≈ 1.8 V</text>
+      <text x="815" y="540" fill="#16765d">GREEN LED · V<tspan baseline-shift="sub" font-size="20">F</tspan> ≈ 1.8 V</text>
+      <text x="825" y="740" fill="#236cc4">BLUE LED · V<tspan baseline-shift="sub" font-size="20">F</tspan> ≈ 3.3 V</text>
+      <text x="1380" y="720">GND · 0 V</text>
+    </g>
+
+    <g font-size="25" fill="#666964">
+      <text x="1090" y="225">I ≈ 14.5 mA</text>
+      <text x="1090" y="425">I ≈ 14.5 mA</text>
+      <text x="1115" y="625">I ≈ 17 mA</text>
+    </g>
+  </g>
+</svg>

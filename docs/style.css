@@ -74,6 +74,24 @@ a:focus-visible {
   outline-offset: 5px;
 }
 
+.source-note {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.source-note a {
+  text-underline-offset: 0.18em;
+}
+
+.code-source {
+  grid-column: 2;
+  width: auto;
+  margin: 18px 0 0;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.58);
+}
+
 /* Home hero */
 .home-hero {
   position: relative;
@@ -811,6 +829,10 @@ a:focus-visible {
 
   .code-section__intro {
     position: static;
+  }
+
+  .code-source {
+    grid-column: 1;
   }
 
   .project-figure--graph {

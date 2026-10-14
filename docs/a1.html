@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#111312" />
     <title>Hana Li's Assignment 1: Blink!</title>
-    <link href="style.css?v=5" rel="stylesheet" type="text/css" />
+    <link href="style.css?v=6" rel="stylesheet" type="text/css" />
   </head>
   <body class="detail-page a1-page">
     <main>
@@ -43,7 +43,7 @@
         </div>
         <div class="media-copy media-copy--wide">
           <figure class="project-figure">
-            <img src="a1-schematic.png" alt="Hand-drawn schematic and resistor calculations for three LEDs" />
+            <img src="a1-schematic.svg" alt="Schematic showing Arduino pins D9, D10, and D11 connected through separate resistors and LEDs to ground" />
             <figcaption>Each LED is controlled by a separate Arduino pin and uses a current-limiting resistor. D9 and D10 use 220 Ω, while D11 uses 100 Ω. GND is 0 V, and 5 V represents the Arduino HIGH output.</figcaption>
           </figure>
           <div class="copy-stack">
@@ -162,6 +162,7 @@ void loop() {
   <span class="code-comment">// Keep this state for one second.</span>
   delay(1000);
 }</code></pre>
+        <p class="source-note code-source">This sketch uses standard functions documented in the <a href="https://docs.arduino.cc/language-reference/">Arduino Language Reference</a>.</p>
       </section>
 
       <section class="project-section project-section--paper questions" aria-labelledby="questions-title">
@@ -186,7 +187,8 @@ void loop() {
           <div class="question__number">02</div>
           <div class="question__body">
             <h3>How many LEDs could you blink independently? How much current would that draw?</h3>
-            <p>The Arduino Uno has 14 digital I/O pins, so theoretically I could control 14 LEDs independently using one pin for each LED. If every LED drew 20 mA and all 14 were on at the same time, the total current would be 14 × 20 mA = 280 mA. This exceeds the microcontroller's 200 mA total current limit, so it would not be safe without reducing the current or using an external LED driver. In my current circuit, only one LED is on at a time, so the maximum LED current is approximately 17 mA.</p>
+            <p>The Arduino Uno has 14 digital I/O pins, so I could theoretically control 14 LEDs independently by assigning one LED to each pin. At the course target of 20 mA per LED, turning all 14 on together would draw 14 × 20 mA = 280 mA. That exceeds the ATmega328P's 200 mA absolute-maximum total current through its power pins, so this setup would require lower LED currents or an external LED driver. In my circuit, only one LED is on at a time, so the maximum LED current is I = (5 V − 3.3 V) / 100 Ω = 17 mA.</p>
+            <p class="source-note">Sources: <a href="https://docs.arduino.cc/hardware/uno-rev3/">Arduino Uno Rev3 specifications</a> and the <a href="https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-7810-Automotive-Microcontrollers-ATmega328P_Datasheet.pdf">ATmega328P datasheet</a>.</p>
           </div>
         </article>
 
@@ -194,7 +196,7 @@ void loop() {
           <div class="question__number">03</div>
           <div class="question__body">
             <h3>How fast do the LEDs need to blink before they appear continuously lit?</h3>
-            <p>At approximately 50 Hz, using 10 ms on and 10 ms off, the LED appears continuously lit and the blinking is no longer clearly visible. The exact threshold can vary depending on the observer, LED brightness, and lighting conditions.</p>
+            <p>I gradually reduced the delay while observing the LED. At 10 ms on and 10 ms off, one complete cycle lasted 20 ms, so the frequency was 1 / 0.020 s = 50 Hz. At approximately 50 Hz, I could no longer clearly distinguish the blinking and the LED appeared continuously lit. This threshold can vary with the observer, LED brightness, and lighting conditions.</p>
           </div>
         </article>
 
@@ -202,7 +204,7 @@ void loop() {
           <div class="question__number">04</div>
           <div class="question__body">
             <h3>AI use and reflection</h3>
-            <p>I used ChatGPT for vibe coding this website.</p>
+            <p>I used ChatGPT for vibe coding this website. It helped me organize the page layout and present the documentation clearly.</p>
           </div>
         </article>
       </section>
