@@ -868,3 +868,22 @@ a:focus-visible {
     display: grid;
   }
 }
+
+/* Keep playback controls accessible within the A2 homepage card. */
+.assignment__media--video {
+  flex: none;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
+  background: #111312;
+}
+
+.assignment__media--video::after {
+  display: none;
+}
+
+.assignment__media--video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

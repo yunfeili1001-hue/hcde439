@@ -55,13 +55,20 @@
             <figcaption>The hand-drawn schematic matches the firmware pin assignments: red D9 with 330 Ω, green D10 with 330 Ω, blue D11 with 220 Ω, and the button between D2 and GND. Each LED has its own series resistor.</figcaption>
           </figure>
           <div class="copy-stack">
-            <p>Each resistor limits the current through its LED. Using a 5 V Arduino output and estimated LED forward voltages of 2.0 V (red), 2.2 V (green), and 3.2 V (blue):</p>
-            <div class="equations" aria-label="LED resistor current calculations">
-              <p><span>Red · D9</span>I = (5 − 2.0) / 330 = 9.1 mA</p>
-              <p><span>Green · D10</span>I = (5 − 2.2) / 330 = 8.5 mA</p>
-              <p><span>Blue · D11</span>I = (5 − 3.2) / 220 = 8.2 mA</p>
+            <p>Each LED needs its own series resistor to limit current. For the resistor selection, I used a 5 V Arduino output and a target current of 10 mA (0.010 A). The estimated forward voltages are 2.0 V for red, 2.2 V for green, and 3.2 V for blue; these are assumptions, not measured values.</p>
+            <p>First, subtract the LED forward voltage from the supply voltage to find the voltage across the resistor. Then use Ohm’s law:</p>
+            <div class="a2-callout"><p><strong>R = V<sub>R</sub> / I = (V<sub>s</sub> − V<sub>f</sub>) / I</strong><br />V<sub>s</sub> = 5 V; I = 10 mA = 0.010 A.</p></div>
+            <div class="equations" aria-label="LED resistor selection calculations">
+              <p><span>Red · D9</span>R = (5 − 2.0) / 0.010 = 300 Ω → use 330 Ω</p>
+              <p><span>Green · D10</span>R = (5 − 2.2) / 0.010 = 280 Ω → use 330 Ω</p>
+              <p><span>Blue · D11</span>R = (5 − 3.2) / 0.010 = 180 Ω → use 220 Ω</p>
             </div>
-            <div class="a2-callout"><p>The 330 Ω and 220 Ω resistors keep each branch below about 10 mA with these forward-voltage estimates. The blue branch uses 220 Ω, as shown in the schematic and the actual circuit.</p></div>
+            <p>I chose the larger standard resistor values of 330 Ω, 330 Ω, and 220 Ω to keep the estimated current below the 10 mA target. With the resistors used in the circuit, the estimated full-on currents are:</p>
+            <div class="equations" aria-label="Current calculations with the selected resistors">
+              <p><span>Red · 330 Ω</span>I = (5 − 2.0) / 330 = 0.00909 A ≈ 9.1 mA</p>
+              <p><span>Green · 330 Ω</span>I = (5 − 2.2) / 330 = 0.00848 A ≈ 8.5 mA</p>
+              <p><span>Blue · 220 Ω</span>I = (5 − 3.2) / 220 = 0.00818 A ≈ 8.2 mA</p>
+            </div>
           </div>
         </div>
       </section>
@@ -259,8 +266,11 @@ void loop() {
           <div class="question__body">
             <h3>Total current and battery runtime</h3>
             <p>Using the estimated forward voltages, the three branch currents add to 9.1 + 8.5 + 8.2 = <strong>25.8 mA</strong>. This is below the Arduino Uno's approximately 200 mA combined I/O current limit, and each pin supplies less than 20 mA.</p>
-            <p>Using the measured green LED voltage of 2.66 V gives a revised estimate of (5 − 2.66) / 330 = 7.1 mA, so the total becomes about 9.1 + 7.1 + 8.2 = <strong>24.4 mA</strong>.</p>
-            <p>For a 1200 mAh battery, the LED-only estimate is 1200 mAh / 24.4 mA ≈ <strong>49 hours</strong>. This ideal estimate excludes the Arduino board's own current and battery conversion losses, so real runtime will be shorter.</p>
+            <p>For a 1200 mAh battery, the LED-only estimate is 1200 mAh / 25.8 mA ≈ <strong>46.5 hours</strong>, as shown in my calculation below. This estimate assumes all three LEDs are continuously on at full brightness and uses the estimated LED forward voltages. It excludes the Arduino board's own current and battery conversion losses, so actual runtime under these conditions will be shorter.</p>
+            <figure class="project-figure project-figure--graph" style="margin-top:24px">
+              <img src="assets/a2-runtime.png" alt="Handwritten calculations: red LED 9.1 mA, green LED 8.5 mA, blue LED 8.2 mA; total 25.8 mA; 1200 mAh divided by 25.8 mA gives approximately 46.5 hours" />
+              <figcaption>My total current and battery runtime calculation, using 330 Ω for red and green and 220 Ω for blue.</figcaption>
+            </figure>
           </div>
         </article>
 
@@ -280,7 +290,7 @@ void loop() {
           <div class="question__number">04</div>
           <div class="question__body">
             <h3>AI use and reflection</h3>
-            <p>I used ChatGPT to help organize the assignment webpage, check the resistor and current calculations, and draft comments explaining the Arduino code. I reviewed the wiring, measurements, and final wording against my physical circuit and course requirements.</p>
+            <p>I used AI to help debug my Arduino code and build this website.</p>
           </div>
         </article>
       </section>
