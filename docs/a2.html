@@ -2,27 +2,287 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#111312" />
-
-    <title>Example Student's HCDE 439 Physical Computing Page!</title>
-
-    <link href="style.css?v=5" rel="stylesheet" type="text/css" />
+    <title>Hana Li's Assignment 2: Fade!</title>
+    <link href="style.css?v=6" rel="stylesheet" />
+    <style>
+      .a2-video-note { padding: 24px; border: 1px dashed rgba(17,19,18,.32); border-radius: 12px; color: var(--muted); }
+      .a2-callout { padding: 20px 22px; border-left: 3px solid var(--warm); background: rgba(255,255,255,.62); color: var(--ink); }
+      .a2-callout p { font-size: .95rem; }
+      .a2-answers .question__body p + p { margin-top: 14px; }
+      .a2-code { max-height: none; }
+      @media (max-width: 900px) { .project-hero__inner, .project-overview, .media-copy, .media-copy--wide, .code-section { grid-template-columns: 1fr; } .project-hero__media { height: auto; aspect-ratio: 4 / 3; } .code-section__intro { position: static; } }
+    </style>
   </head>
-  <body class="detail-page">
+  <body class="detail-page a1-page">
     <main>
-      <section class="detail-hero" aria-labelledby="page-title">
+      <section class="project-hero" aria-labelledby="page-title">
         <a class="back-link" href="index.html" aria-label="Back to the homepage">←</a>
-        <h1 id="page-title">Example Student's Assignment 2!</h1>
+        <div class="project-hero__inner">
+          <div class="project-hero__copy">
+            <p class="eyebrow">HCDE 439 · Assignment 02</p>
+            <h1 id="page-title">Fade!</h1>
+            <p class="project-hero__intro">A button controls three colored LEDs. The red light fades in and out while the green and blue lights stay on.</p>
+          </div>
+          <figure class="project-hero__media">
+            <img src="assets/current-attachment.jpeg" alt="Arduino Uno and breadboard connected to a push button and three glowing LEDs" />
+          </figure>
+        </div>
       </section>
 
-      <section class="detail-content">
-        <div class="detail-content__media">
-          <img src="red-panda.jpg" alt="Red panda" />
+      <section class="project-overview" aria-labelledby="overview-title">
+        <div>
+          <p class="eyebrow eyebrow--dark">Project overview</p>
+          <h2 id="overview-title">Press once.<br />Light the toy.</h2>
         </div>
-        <div class="detail-content__copy">
-          <p>Here is all the documentation for assignment 2!</p>
+        <p class="project-overview__text">The push button on D2 toggles the light-up toy on and off. When it is on, the red LED on D9 fades continuously; the green LED on D10 and blue LED on D11 remain steadily lit.</p>
+        <dl class="project-facts">
+          <div><dt>03</dt><dd>red, green, and blue LEDs</dd></div>
+          <div><dt>01</dt><dd>push button on digital pin 2</dd></div>
+          <div><dt>Fade</dt><dd>PWM brightness on pin 9</dd></div>
+        </dl>
+      </section>
+
+      <section class="project-section project-section--paper" aria-labelledby="schematic-title">
+        <div class="project-section__heading">
+          <p class="section-number">01</p>
+          <div><p class="eyebrow eyebrow--dark">Plan</p><h2 id="schematic-title">Schematic &amp; resistor calculations</h2></div>
         </div>
+        <div class="media-copy media-copy--wide">
+          <figure class="project-figure">
+            <img src="assets/a2-schematic.png" alt="Hand-drawn schematic showing D11 to a 220 ohm resistor and blue LED, D10 to a 330 ohm resistor and green LED, D9 to a 330 ohm resistor and red LED, plus a button from D2 to ground" />
+            <figcaption>The hand-drawn schematic matches the firmware pin assignments: red D9 with 330 Ω, green D10 with 330 Ω, blue D11 with 220 Ω, and the button between D2 and GND. Each LED has its own series resistor.</figcaption>
+          </figure>
+          <div class="copy-stack">
+            <p>Each resistor limits the current through its LED. Using a 5 V Arduino output and estimated LED forward voltages of 2.0 V (red), 2.2 V (green), and 3.2 V (blue):</p>
+            <div class="equations" aria-label="LED resistor current calculations">
+              <p><span>Red · D9</span>I = (5 − 2.0) / 330 = 9.1 mA</p>
+              <p><span>Green · D10</span>I = (5 − 2.2) / 330 = 8.5 mA</p>
+              <p><span>Blue · D11</span>I = (5 − 3.2) / 220 = 8.2 mA</p>
+            </div>
+            <div class="a2-callout"><p>The 330 Ω and 220 Ω resistors keep each branch below about 10 mA with these forward-voltage estimates. The blue branch uses 220 Ω, as shown in the schematic and the actual circuit.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="project-section project-section--dark" aria-labelledby="circuit-title">
+        <div class="project-section__heading">
+          <p class="section-number">02</p>
+          <div><p class="eyebrow">Build</p><h2 id="circuit-title">Physical circuit</h2></div>
+        </div>
+        <div class="media-copy">
+          <figure class="project-figure project-figure--dark">
+            <img src="assets/current-attachment.jpeg" alt="Photograph of the assembled Arduino circuit with all three LEDs lit" />
+            <figcaption>The assembled circuit with the Arduino, push button, and red, green, and blue LEDs.</figcaption>
+          </figure>
+          <div class="copy-stack">
+            <p>Each LED is connected in series with its resistor and returns to the common ground. The button connects D2 to ground; the firmware enables the Arduino's internal pull-up resistor.</p>
+            <ul class="connection-list">
+              <li><span>D9</span>330 Ω → red LED → GND</li>
+              <li><span>D10</span>330 Ω → green LED → GND</li>
+              <li><span>D11</span>220 Ω → blue LED → GND</li>
+              <li><span>D2</span>push button → GND</li>
+            </ul>
+            <p style="color:rgba(255,255,255,.65);font-size:.9rem">With INPUT_PULLUP, the pressed button current is limited by the Arduino's internal pull-up (about 20–50 kΩ): 5 V / 20–50 kΩ ≈ 0.10–0.25 mA. No separate button resistor is needed in this wiring.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="project-section project-section--paper" aria-labelledby="operation-title">
+        <div class="project-section__heading">
+          <p class="section-number">03</p>
+          <div><p class="eyebrow eyebrow--dark">Test</p><h2 id="operation-title">Circuit operation</h2></div>
+        </div>
+        <div class="media-copy media-copy--operation">
+          <figure class="project-figure project-figure--gif">
+            <img src="assets/current-attachment.jpeg" alt="Still photograph of the three-LED button-controlled circuit" />
+            <figcaption>Still photo of the working circuit. A video or animated GIF is required for the final operation demonstration.</figcaption>
+          </figure>
+          <div class="copy-stack">
+            <p>Press the button once and all three LEDs turn on. The red LED smoothly fades brighter and dimmer; the green and blue LEDs stay on. Press the button again and all three LEDs turn off.</p>
+            <div class="a2-video-note"><p><strong>Operation video:</strong> the file attached to the latest message is an image, not a video file, so it is shown here as a still photo. Replace this figure with the supplied MP4/MOV clip or an animated GIF when the video file is available.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="code-section" aria-labelledby="code-title">
+        <div class="code-section__intro">
+          <p class="eyebrow">Firmware</p>
+          <h2 id="code-title">Button toggle &amp; fade</h2>
+          <p>Every line with code has a short explanation directly above it. D9 uses PWM for fading; D10 and D11 use digital output.</p>
+        </div>
+        <pre class="code-block a2-code"><code>// Store the digital pin connected to the button.
+const int buttonPin = 2;
+
+// Store the pins connected to the red, green, and blue LEDs.
+const int ledPins[] = {9, 10, 11};
+
+// Remember whether the LEDs should currently be on.
+bool lightsOn = false;
+
+// Store the button's previous raw reading; INPUT_PULLUP is HIGH when released.
+int lastButtonReading = HIGH;
+
+// Store the last stable button state.
+int buttonState = HIGH;
+
+// Store when the raw button reading last changed.
+unsigned long lastDebounceTime = 0;
+
+// Set the time the button must remain steady to filter contact bounce.
+const unsigned long debounceDelay = 35;
+
+// Store the current brightness of the red LED.
+int brightness = 0;
+
+// Set the fade direction: 1 means brighter and -1 means dimmer.
+int fadeDirection = 1;
+
+// Store when the red LED brightness was last updated.
+unsigned long lastFadeUpdate = 0;
+
+// Configure the button and LED pins when the program starts.
+void setup() {
+  // Enable the internal pull-up resistor; wire the button between D2 and GND.
+  pinMode(buttonPin, INPUT_PULLUP);
+
+  // Use a for loop to configure each of the three LED pins as an output.
+  for (int i = 0; i < 3; i++) {
+    // Set the current LED pin to output mode.
+    pinMode(ledPins[i], OUTPUT);
+  }
+}
+
+// Read the button and update the toy's light pattern continuously.
+void loop() {
+  // Read the button's current raw digital state.
+  int reading = digitalRead(buttonPin);
+
+  // Restart the debounce timer whenever the raw reading changes.
+  if (reading != lastButtonReading) {
+    // Record the time of this raw state change.
+    lastDebounceTime = millis();
+  }
+
+  // Accept a button reading only after it has remained stable long enough.
+  if (millis() - lastDebounceTime > debounceDelay) {
+    // Check whether the stable reading differs from the last confirmed state.
+    if (reading != buttonState) {
+      // Save the newly confirmed button state.
+      buttonState = reading;
+
+      // With INPUT_PULLUP, a pressed button reads LOW.
+      if (buttonState == LOW) {
+        // Toggle the whole light pattern once for each press.
+        lightsOn = !lightsOn;
+      }
+    }
+  }
+
+  // Save this raw reading for comparison on the next loop pass.
+  lastButtonReading = reading;
+
+  // Check whether the toy's lights are currently turned off.
+  if (!lightsOn) {
+    // Use a for loop to switch off all three LED pins.
+    for (int i = 0; i < 3; i++) {
+      // Drive the current LED pin LOW to turn it off.
+      digitalWrite(ledPins[i], LOW);
+    }
+
+    // Ensure the fading red LED also has zero PWM brightness.
+    analogWrite(ledPins[0], 0);
+
+    // Finish this pass while the LEDs are off.
+    return;
+  }
+
+  // Keep the green LED on while the toy is active.
+  digitalWrite(ledPins[1], HIGH);
+
+  // Keep the blue LED on while the toy is active.
+  digitalWrite(ledPins[2], HIGH);
+
+  // Update the red LED fade every 10 milliseconds without blocking button reads.
+  if (millis() - lastFadeUpdate >= 10) {
+    // Save the time of this brightness update.
+    lastFadeUpdate = millis();
+
+    // Move the red LED brightness one step in the current fade direction.
+    brightness = brightness + fadeDirection;
+
+    // Reverse direction when the red LED reaches minimum brightness.
+    if (brightness <= 0) {
+      // Keep brightness within the allowed 0-to-255 PWM range.
+      brightness = 0;
+
+      // Start fading brighter again.
+      fadeDirection = 1;
+    }
+
+    // Reverse direction when the red LED reaches maximum brightness.
+    if (brightness >= 255) {
+      // Keep brightness within the allowed 0-to-255 PWM range.
+      brightness = 255;
+
+      // Start fading dimmer again.
+      fadeDirection = -1;
+    }
+
+    // Use PWM to set the red LED brightness and create the fade effect.
+    analogWrite(ledPins[0], brightness);
+  }
+}</code></pre>
+      </section>
+
+      <section class="project-section project-section--paper questions a2-answers" aria-labelledby="questions-title">
+        <div class="project-section__heading">
+          <p class="section-number">04</p>
+          <div><p class="eyebrow eyebrow--dark">Analysis</p><h2 id="questions-title">Additional questions</h2></div>
+        </div>
+
+        <article class="question">
+          <div class="question__number">01</div>
+          <div class="question__body">
+            <h3>Voltage across a red LED at three PWM values</h3>
+            <p>The chart shows the voltage across the LED during one PWM period. A red LED is approximated as about 2.0 V when on and 0 V when off. `analogWrite()` values 64 and 128 produce about 25% and 50% duty cycles; 255 stays on continuously.</p>
+            <figure class="project-figure project-figure--graph">
+              <img src="assets/a2-pwm-chart.png" alt="The PWM chart I drew, with time on the horizontal axis and voltage across a red LED on the vertical axis for analogWrite values 64, 128, and 255" />
+              <figcaption>My chart shows voltage across the red LED over one PWM period. The X axis is time and the Y axis is voltage; the three traces represent analogWrite values 64, 128, and 255.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="question">
+          <div class="question__number">02</div>
+          <div class="question__body">
+            <h3>Total current and battery runtime</h3>
+            <p>Using the estimated forward voltages, the three branch currents add to 9.1 + 8.5 + 8.2 = <strong>25.8 mA</strong>. This is below the Arduino Uno's approximately 200 mA combined I/O current limit, and each pin supplies less than 20 mA.</p>
+            <p>Using the measured green LED voltage of 2.66 V gives a revised estimate of (5 − 2.66) / 330 = 7.1 mA, so the total becomes about 9.1 + 7.1 + 8.2 = <strong>24.4 mA</strong>.</p>
+            <p>For a 1200 mAh battery, the LED-only estimate is 1200 mAh / 24.4 mA ≈ <strong>49 hours</strong>. This ideal estimate excludes the Arduino board's own current and battery conversion losses, so real runtime will be shorter.</p>
+          </div>
+        </article>
+
+        <article class="question">
+          <div class="question__number">03</div>
+          <div class="question__body">
+            <h3>Measured LED voltage</h3>
+            <p>The multimeter photo shows <strong>2.66 V across the green LED</strong> while it is on. The theoretical value used for the green LED calculation was 2.2 V, so the measured reading is 0.46 V higher. Forward voltage varies with the specific LED, current, and temperature; the measured value is the best record for this built circuit.</p>
+            <figure class="project-figure" style="max-width:620px;margin-top:24px">
+              <img src="assets/a2-measurement.jpg" alt="Multimeter reading 2.66 volts while the green LED is lit" />
+              <figcaption>Measurement photo: the multimeter reads 2.66 V across the green LED.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="question">
+          <div class="question__number">04</div>
+          <div class="question__body">
+            <h3>AI use and reflection</h3>
+            <p>I used ChatGPT to help organize the assignment webpage, check the resistor and current calculations, and draft comments explaining the Arduino code. I reviewed the wiring, measurements, and final wording against my physical circuit and course requirements.</p>
+          </div>
+        </article>
       </section>
     </main>
   </body>
