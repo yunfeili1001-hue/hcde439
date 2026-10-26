@@ -56,26 +56,23 @@ void loop() {
   // Convert Celsius to Fahrenheit for the threshold comparison.
   float tempF = tempC * 9.0 / 5.0 + 32.0;
 
-  // Use the green indicator below the 140-degree Fahrenheit threshold.
+  // Store whether the temperature is below the 140 F threshold as 1 or 0.
+  int greenState = (tempF < THRESHOLD_F) ? 1 : 0;
+  // Map the selected green state to off (0) or full PWM brightness (255).
+  int greenBrightness = map(greenState, 0, 1, 0, 255);
+
+  // Keep green fully on whenever the calculated temperature is below 140 F.
   if (tempF < THRESHOLD_F) {
-    // Limit only the green brightness calculation to 120–140 degrees; all values below 140 still select green.
-    long boundedTemp = constrain((long)tempF, 120L, 140L);
-    // Map 120–140 degrees to green PWM 255–60; colder readings stay at 255.
-    int brightness = map(boundedTemp, 120, 140, 255, 60);
-    // Set the active green LED brightness with 8-bit PWM.
-    analogWrite(GREEN_PIN, brightness);
-    // Turn off the red LED while green is active.
+    // Turn the green LED fully on with PWM 255.
+    analogWrite(GREEN_PIN, greenBrightness);
+    // Turn the red LED off.
     analogWrite(RED_PIN, 0);
   }
-  // Use red when the calculated temperature reaches or exceeds 140 degrees.
+  // Keep red fully on at or above 140 F.
   else {
-    // Limit the red brightness calculation to 140–160 degrees.
-    long boundedTemp = constrain((long)tempF, 140L, 160L);
-    // Map 140–160 degrees to red PWM 60–255; hotter readings stay at 255.
-    int brightness = map(boundedTemp, 140, 160, 60, 255);
-    // Set the active red LED brightness with 8-bit PWM.
-    analogWrite(RED_PIN, brightness);
-    // Turn off the green LED while red is active.
+    // Turn the red LED fully on with PWM 255.
+    analogWrite(RED_PIN, 255 - greenBrightness);
+    // Turn the green LED off.
     analogWrite(GREEN_PIN, 0);
   }
 
