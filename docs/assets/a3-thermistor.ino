@@ -58,10 +58,10 @@ void loop() {
 
   // Use the green indicator below the 140-degree Fahrenheit threshold.
   if (tempF < THRESHOLD_F) {
-    // Retain the original sketch's 60–80 degree brightness interval.
-    long boundedTemp = constrain((long)tempF, 60L, 80L);
-    // Map that interval to green PWM values from 255 down to 60.
-    int brightness = map(boundedTemp, 60, 80, 255, 60);
+    // Limit only the green brightness calculation to 120–140 degrees; all values below 140 still select green.
+    long boundedTemp = constrain((long)tempF, 120L, 140L);
+    // Map 120–140 degrees to green PWM 255–60; colder readings stay at 255.
+    int brightness = map(boundedTemp, 120, 140, 255, 60);
     // Set the active green LED brightness with 8-bit PWM.
     analogWrite(GREEN_PIN, brightness);
     // Turn off the red LED while green is active.
@@ -69,10 +69,10 @@ void loop() {
   }
   // Use red when the calculated temperature reaches or exceeds 140 degrees.
   else {
-    // Retain the original sketch's 80–100 degree brightness interval.
-    long boundedTemp = constrain((long)tempF, 80L, 100L);
-    // Map that interval to red PWM values from 60 up to 255.
-    int brightness = map(boundedTemp, 80, 100, 60, 255);
+    // Limit the red brightness calculation to 140–160 degrees.
+    long boundedTemp = constrain((long)tempF, 140L, 160L);
+    // Map 140–160 degrees to red PWM 60–255; hotter readings stay at 255.
+    int brightness = map(boundedTemp, 140, 160, 60, 255);
     // Set the active red LED brightness with 8-bit PWM.
     analogWrite(RED_PIN, brightness);
     // Turn off the green LED while red is active.
