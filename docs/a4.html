@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#111312" />
   <title>Hana Li's Assignment 4: Libraries!</title>
   <link rel="stylesheet" href="style.css?v=7" />
-  <link rel="stylesheet" href="a4.css" />
+  <link rel="stylesheet" href="a4.css?v=2" />
 </head>
 <body class="detail-page a1-page a4-page">
   <main>
@@ -98,7 +98,8 @@
       </div>
     </section>
 
-    <section class="code-section" id="firmware" aria-label="Firmware">
+    <section class="code-section" id="firmware" aria-labelledby="firmware-title">
+      <h2 id="firmware-title">代码</h2>
       <pre class="code-block"><code><span class="code-comment">// Use the Arduino Servo library to generate control pulses for the SG90.</span>
 #include &lt;Servo.h&gt;
 <span class="code-comment">// Use the CapacitiveSensor library by Paul Badger and Paul Stoffregen.</span>

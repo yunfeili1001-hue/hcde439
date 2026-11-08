@@ -28,6 +28,13 @@
 
 .a4-page .code-section {
   grid-template-columns: minmax(0, 1fr);
+  gap: clamp(16px, 3vw, 32px);
+}
+
+.a4-page .code-block {
+  padding: clamp(14px, 3vw, 32px);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .a4-page .project-figure img {
