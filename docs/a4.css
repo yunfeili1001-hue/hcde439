@@ -26,12 +26,8 @@
   max-width: 1000px;
 }
 
-.a4-page .code-section__intro a {
-  color: inherit;
-}
-
-.a4-page .code-section__intro p + p {
-  margin-top: 16px;
+.a4-page .code-section {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .a4-page .project-figure img {

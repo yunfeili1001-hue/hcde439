@@ -54,7 +54,7 @@
           </figure>
         </div>
         <div class="copy-stack">
-          <p><strong>1 MΩ sensing resistor.</strong> The resistor makes small changes in capacitance easier to detect. With <em>τ = RC</em>, 1 MΩ adds 1 µs to the time constant for each extra 1 pF.</p>
+          <p><strong>1 MΩ sensing resistor.</strong> The resistor makes small changes in capacitance easier to detect.</p>
           <p><strong>330 Ω LED resistor.</strong> The resistor limits LED current to about <em>(5 V − 2.1 V) / 330 Ω = 8.8 mA</em>, assuming a 2.1 V drop across the LED.</p>
         </div>
       </div>
@@ -99,16 +99,6 @@
     </section>
 
     <section class="code-section" id="firmware" aria-label="Firmware">
-      <div class="code-section__intro">
-        <p class="eyebrow">Firmware</p>
-        <p>Each reading combines <strong>30 cycles</strong> to reduce noise. A reading above <strong>100 counts</strong> triggers both outputs.</p>
-        <p>A <strong>50 ms</strong> pause keeps the response quick while spacing out readings. The Serial Monitor shows the readings at <strong>9600 baud</strong>.</p>
-        <p>Library references:
-          <a href="https://github.com/PaulStoffregen/CapacitiveSensor">CapacitiveSensor</a> and
-          <a href="https://github.com/arduino-libraries/Servo">Arduino Servo</a>.
-        </p>
-        <p><a href="assets/A4_ForkTouch/A4_ForkTouch.ino" download>Download Arduino sketch (.ino) ↓</a></p>
-      </div>
       <pre class="code-block"><code><span class="code-comment">// Use the Arduino Servo library to generate control pulses for the SG90.</span>
 #include &lt;Servo.h&gt;
 <span class="code-comment">// Use the CapacitiveSensor library by Paul Badger and Paul Stoffregen.</span>
@@ -167,13 +157,9 @@ void loop() {
       <div class="a4-answers">
         <article>
           <h3>1. What does the servo signal on D9 look like?</h3>
-          <p>D9 pulses between 0 V and about 5 V. Pulse starts are about 20 ms apart. The pulse gets wider every 100 ms and returns to its shortest width at about 18.1 s.</p>
+          <p>D9 sends 0–5 V pulses about every 20 ms. Pulse width increases every 100 ms and resets after about 18.1 s.</p>
           <figure class="project-figure">
             <img src="assets/a4-servo-waveform.jpg" width="1799" height="916" loading="lazy" alt="Hand-drawn graph of D9 voltage over time, showing pulses widening from 0 to 180 degrees and narrowing again at about 18.1 seconds." />
-            <figcaption>Hand-drawn D9 voltage relative to GND. The sketch uses rounded example widths. The default Uno Servo library gives about 0.54, 1.47, and 2.40 ms at 0°, 90°, and 180°.
-              <a href="https://github.com/arduino-libraries/Servo/blob/master/src/Servo.h">Default pulse limits</a> ·
-              <a href="https://github.com/arduino-libraries/Servo/blob/master/src/avr/Servo.cpp">AVR angle-to-pulse mapping</a>
-            </figcaption>
           </figure>
         </article>
 
@@ -204,7 +190,7 @@ repeat every 10 ms:
 
         <article>
           <h3>4. How did I use AI?</h3>
-          <p>I shared an Arduino upload error with ChatGPT. It helped me find the correct serial port, and the sketch uploaded after I switched ports.</p>
+          <p>I used ChatGPT to build this website and debug an Arduino upload error. It helped me find the correct serial port.</p>
         </article>
       </div>
     </section>
