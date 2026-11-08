@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="530" viewBox="0 0 1000 530" role="img" aria-labelledby="title desc">
+<title id="title">Servo control voltage at D9 relative to GND</title>
+<desc id="desc">Four zoomed views of the Uno's 0 to 5 volt pulse train at 0, 9, 18 and 18.1 seconds. Pulses repeat about every 20 milliseconds. Their high time grows from 0.54 milliseconds to 1.47 and 2.40 milliseconds, then returns to 0.54 milliseconds when the loop repeats.</desc>
+<style>
+text{font-family:Arial,sans-serif;fill:#202a24}.heading{font-size:27px;font-weight:700}.subtitle{font-size:16px;fill:#4f5e55}.panel-title{font-size:17px;font-weight:700}.tick{font-size:13px;fill:#4f5e55}.axis{stroke:#68766d;stroke-width:1.25;fill:none}.grid{stroke:#dae2db;stroke-width:1;stroke-dasharray:4 4}.trace{stroke:#176949;stroke-width:2.6;fill:none;stroke-linejoin:round}
+</style>
+<rect width="1000" height="530" fill="#fff"/>
+<text x="36" y="45" class="heading">D9 voltage relative to ground</text>
+<text x="36" y="73" class="subtitle">Four 60 ms windows from the sweep · Uno Servo library default timing</text>
+
+<rect x="36" y="97" width="449" height="193" rx="10" fill="#f7faf7" stroke="#d9e3db"/>
+<text x="56" y="126" class="panel-title">0.0 s · 0°</text>
+<text x="462" y="126" class="tick" text-anchor="end">0.54 ms high</text>
+<path d="M85 161H445" class="grid"/>
+<path d="M85 151V233H445" class="axis"/>
+<text x="76" y="165" class="tick" text-anchor="end">5 V</text>
+<text x="76" y="237" class="tick" text-anchor="end">0 V</text>
+<path d="M85 233H85V161H88.264V233H205V161H208.264V233H325V161H328.264V233H445" class="trace"/>
+<path d="M85 233v5" class="axis"/>
+<text x="85" y="254" class="tick" text-anchor="middle">0</text>
+<path d="M205 233v5" class="axis"/>
+<text x="205" y="254" class="tick" text-anchor="middle">20</text>
+<path d="M325 233v5" class="axis"/>
+<text x="325" y="254" class="tick" text-anchor="middle">40</text>
+<path d="M445 233v5" class="axis"/>
+<text x="445" y="254" class="tick" text-anchor="middle">60</text>
+<text x="265" y="274" class="tick" text-anchor="middle">Time within window (ms)</text>
+<rect x="515" y="97" width="449" height="193" rx="10" fill="#f7faf7" stroke="#d9e3db"/>
+<text x="535" y="126" class="panel-title">9.0 s · 90°</text>
+<text x="941" y="126" class="tick" text-anchor="end">1.47 ms high</text>
+<path d="M564 161H924" class="grid"/>
+<path d="M564 151V233H924" class="axis"/>
+<text x="555" y="165" class="tick" text-anchor="end">5 V</text>
+<text x="555" y="237" class="tick" text-anchor="end">0 V</text>
+<path d="M564 233H564V161H572.832V233H684V161H692.832V233H804V161H812.832V233H924" class="trace"/>
+<path d="M564 233v5" class="axis"/>
+<text x="564" y="254" class="tick" text-anchor="middle">0</text>
+<path d="M684 233v5" class="axis"/>
+<text x="684" y="254" class="tick" text-anchor="middle">20</text>
+<path d="M804 233v5" class="axis"/>
+<text x="804" y="254" class="tick" text-anchor="middle">40</text>
+<path d="M924 233v5" class="axis"/>
+<text x="924" y="254" class="tick" text-anchor="middle">60</text>
+<text x="744" y="274" class="tick" text-anchor="middle">Time within window (ms)</text>
+<rect x="36" y="303" width="449" height="193" rx="10" fill="#f7faf7" stroke="#d9e3db"/>
+<text x="56" y="332" class="panel-title">18.0 s · 180°</text>
+<text x="462" y="332" class="tick" text-anchor="end">2.40 ms high</text>
+<path d="M85 367H445" class="grid"/>
+<path d="M85 357V439H445" class="axis"/>
+<text x="76" y="371" class="tick" text-anchor="end">5 V</text>
+<text x="76" y="443" class="tick" text-anchor="end">0 V</text>
+<path d="M85 439H85V367H99.400V439H205V367H219.400V439H325V367H339.400V439H445" class="trace"/>
+<path d="M85 439v5" class="axis"/>
+<text x="85" y="460" class="tick" text-anchor="middle">0</text>
+<path d="M205 439v5" class="axis"/>
+<text x="205" y="460" class="tick" text-anchor="middle">20</text>
+<path d="M325 439v5" class="axis"/>
+<text x="325" y="460" class="tick" text-anchor="middle">40</text>
+<path d="M445 439v5" class="axis"/>
+<text x="445" y="460" class="tick" text-anchor="middle">60</text>
+<text x="265" y="480" class="tick" text-anchor="middle">Time within window (ms)</text>
+<rect x="515" y="303" width="449" height="193" rx="10" fill="#f7faf7" stroke="#d9e3db"/>
+<text x="535" y="332" class="panel-title">18.1 s · restart at 0°</text>
+<text x="941" y="332" class="tick" text-anchor="end">0.54 ms high</text>
+<path d="M564 367H924" class="grid"/>
+<path d="M564 357V439H924" class="axis"/>
+<text x="555" y="371" class="tick" text-anchor="end">5 V</text>
+<text x="555" y="443" class="tick" text-anchor="end">0 V</text>
+<path d="M564 439H564V367H567.264V439H684V367H687.264V439H804V367H807.264V439H924" class="trace"/>
+<path d="M564 439v5" class="axis"/>
+<text x="564" y="460" class="tick" text-anchor="middle">0</text>
+<path d="M684 439v5" class="axis"/>
+<text x="684" y="460" class="tick" text-anchor="middle">20</text>
+<path d="M804 439v5" class="axis"/>
+<text x="804" y="460" class="tick" text-anchor="middle">40</text>
+<path d="M924 439v5" class="axis"/>
+<text x="924" y="460" class="tick" text-anchor="middle">60</text>
+<text x="744" y="480" class="tick" text-anchor="middle">Time within window (ms)</text>
+</svg>

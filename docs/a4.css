@@ -1,0 +1,48 @@
+.a4-figures,
+.a4-answers {
+  display: grid;
+  gap: clamp(24px, 4vw, 56px);
+}
+
+.a4-answers article {
+  min-width: 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+
+.a4-answers h3 {
+  margin-bottom: 18px;
+  font-size: clamp(1.4rem, 3vw, 2.3rem);
+}
+
+.a4-answers article > p,
+.a4-ai-log {
+  max-width: 900px;
+  margin: 18px 0;
+  line-height: 1.65;
+}
+
+.a4-ai-log {
+  padding-left: 1.3em;
+}
+
+.a4-ai-log li + li {
+  margin-top: 12px;
+}
+
+.a4-answers .project-figure,
+.a4-answers .code-block {
+  max-width: 1000px;
+}
+
+.a4-page .code-section__intro a {
+  color: inherit;
+}
+
+.a4-page .code-section__intro p + p {
+  margin-top: 16px;
+}
+
+.a4-page .project-figure img {
+  height: auto;
+}
