@@ -46,15 +46,15 @@
         <div class="a4-figures">
           <figure class="project-figure">
             <img src="assets/a4-schematic-input.jpg" width="842" height="490" loading="lazy" alt="Hand-drawn schematic with a 1 megohm resistor between D2 and D4, and the fork connected to the D4 junction" />
-            <figcaption>D2 and D4 connect through 1 MΩ. The fork connects at D4.</figcaption>
+            <figcaption>D2 sends a signal through the 1 MΩ resistor. D4 reads the timing at the same point where the fork connects. Touching the fork adds capacitance, so the voltage at D4 takes longer to change.</figcaption>
           </figure>
           <figure class="project-figure">
             <img src="assets/a4-schematic-output.jpg" width="1097" height="621" loading="lazy" alt="Hand-drawn schematic of the SG90 on D12 with 5 volt power and ground, and the green LED on D9 through a 330 ohm resistor to ground" />
-            <figcaption>D12 controls the servo. D9 drives the green LED through 330 Ω.</figcaption>
+            <figcaption>D12 sends the position signal to the SG90. The servo’s red wire connects to 5 V and its brown wire to ground. D9 drives the green LED through the 330 Ω resistor, and the LED and servo share the Uno’s ground.</figcaption>
           </figure>
         </div>
         <div class="copy-stack">
-          <p><strong>1 MΩ sensing resistor.</strong> The resistor makes small changes in capacitance easier to detect.</p>
+          <p><strong>1 MΩ sensing resistor.</strong> The large resistance slows the voltage change at D4, making the difference between touching and releasing the fork easier to measure.</p>
           <p><strong>330 Ω LED resistor.</strong> The resistor limits LED current to about <em>(5 V − 2.1 V) / 330 Ω = 8.8 mA</em>, assuming a 2.1 V drop across the LED.</p>
         </div>
       </div>
@@ -68,7 +68,7 @@
       <div class="media-copy">
         <figure class="project-figure project-figure--dark">
           <img src="assets/a4-circuit.jpg" width="1600" height="1200" loading="lazy" alt="The assembled circuit, showing the Uno, breadboard, green LED, fork electrode, and SG90 servo" />
-          <figcaption>The assembled circuit with the fork clipped to the D4 sensing wire.</figcaption>
+          <figcaption>An alligator clip connects the metal fork to the D4 sensing wire. The green LED on the breadboard and the blue SG90 below it show when the Uno detects a touch.</figcaption>
         </figure>
         <div class="copy-stack">
           <ul class="connection-list">
@@ -166,7 +166,7 @@ void loop() {
 
         <article>
           <h3>2. How can we handle a bad reading 1% of the time?</h3>
-          <p>Take three readings and keep the middle value. This filters out one extreme reading.</p>
+          <p>Use a median filter for occasional bad readings. Take three readings close together, sort them, and keep the middle value.</p>
           <pre class="code-block"><code>function readWithOutlierRejection():
     samples = []
     repeat 3 times:
@@ -174,11 +174,12 @@ void loop() {
         wait 10 ms
     sort samples in ascending order
     return samples[1]  // middle element, using zero-based indexing</code></pre>
+          <p>For example, if the fork is untouched and the sensor reports 82, 900, and 84, the median is 84. The single spike above the touch threshold of 100 would be ignored.</p>
         </article>
 
         <article>
           <h3>3. How can we reduce random noise of ±10%?</h3>
-          <p>Average the latest 10 readings. Random highs and lows tend to cancel, but sudden changes show up more slowly.</p>
+          <p>Use a moving average. Every 10 ms, add a new reading, drop the oldest once there are more than 10, and average the readings left in the queue.</p>
           <pre class="code-block"><code>recent = empty queue
 
 repeat every 10 ms:
@@ -187,6 +188,7 @@ repeat every 10 ms:
         recent.popFront()
     filteredValue = sum(recent) / recent.size()
     use(filteredValue)</code></pre>
+          <p>If the true value is near 100, readings like 90 and 110 can balance each other in the average. This smooths random noise, but a real change takes a few samples to show up because older readings are still in the window.</p>
         </article>
 
         <article>
