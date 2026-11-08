@@ -16,7 +16,7 @@
         <div>
           <p class="eyebrow">HCDE 439 · Assignment 04</p>
           <h1 id="page-title">Libraries!</h1>
-          <p class="project-hero__intro">A metal fork acts as a touch sensor. Touching it turns on a green LED and moves a micro servo. Letting go reverses both outputs.</p>
+          <p class="project-hero__intro">Touch the metal fork to light the green LED and move the servo.</p>
         </div>
         <figure class="project-hero__media">
           <img src="assets/a4-circuit.jpg" width="1600" height="1200" alt="Arduino Uno, breadboard, SG90 servo, green LED, and metal fork on a desk" />
@@ -29,7 +29,7 @@
         <p class="eyebrow eyebrow--dark">Project overview</p>
         <h2 id="overview">Touch a fork.<br />Move a servo.</h2>
       </div>
-      <p class="project-overview__text">The CapacitiveSensor library measures a change at the fork electrode, and the Servo library sends position commands to the SG90. The LED shows the same touch state as the servo.</p>
+      <p class="project-overview__text">CapacitiveSensor detects touch at the fork. Servo moves the SG90 to 90° on touch and back to 0° on release.</p>
       <dl class="project-facts">
         <div><dt>01</dt><dd>Capacitive fork input on D4</dd></div>
         <div><dt>02</dt><dd>Libraries · CapacitiveSensor and Servo</dd></div>
@@ -46,16 +46,16 @@
         <div class="a4-figures">
           <figure class="project-figure">
             <img src="assets/a4-schematic-input.jpg" width="842" height="490" loading="lazy" alt="Hand-drawn schematic with a 1 megohm resistor between D2 and D4, and the fork connected to the D4 junction" />
-            <figcaption>The input drawing shows D2 driving the resistor and D4 sensing the charge timing. The metal fork connects to the D4 side of the 1 MΩ resistor.</figcaption>
+            <figcaption>D2 and D4 connect through 1 MΩ. The fork connects at D4.</figcaption>
           </figure>
           <figure class="project-figure">
             <img src="assets/a4-schematic-output.jpg" width="1097" height="621" loading="lazy" alt="Hand-drawn schematic of the SG90 on D12 with 5 volt power and ground, and the green LED on D9 through a 330 ohm resistor to ground" />
-            <figcaption>The output drawing shows the servo signal on D12, its red lead on 5 V and brown lead on common ground. The green LED runs from D9 through 330 Ω to ground.</figcaption>
+            <figcaption>D12 controls the servo. D9 drives the green LED through 330 Ω.</figcaption>
           </figure>
         </div>
         <div class="copy-stack">
-          <p><strong>1 MΩ sensing resistor.</strong> D2 charges and discharges the fork electrode through the resistor while D4 measures how long the signal takes to switch. The time constant is <em>τ = RC</em>. With 1 MΩ, every additional 1 pF of capacitance adds 1 µs to the time constant. This makes small changes in capacitance easier to detect.</p>
-          <p><strong>330 Ω LED resistor.</strong> Assuming a 5 V output and a green LED forward voltage of about 2.1 V, the estimated LED current is <em>I = (5 V − 2.1 V) / 330 Ω ≈ 8.8 mA</em>. The series resistor limits the current while keeping the LED visible.</p>
+          <p><strong>1 MΩ sensing resistor.</strong> The resistor makes small changes in capacitance easier to detect. With <em>τ = RC</em>, 1 MΩ adds 1 µs to the time constant for each extra 1 pF.</p>
+          <p><strong>330 Ω LED resistor.</strong> The resistor limits LED current to about <em>(5 V − 2.1 V) / 330 Ω = 8.8 mA</em>, assuming a 2.1 V drop across the LED.</p>
         </div>
       </div>
     </section>
@@ -68,7 +68,7 @@
       <div class="media-copy">
         <figure class="project-figure project-figure--dark">
           <img src="assets/a4-circuit.jpg" width="1600" height="1200" loading="lazy" alt="The assembled circuit, showing the Uno, breadboard, green LED, fork electrode, and SG90 servo" />
-          <figcaption>The completed breadboard circuit. A wire connects the metal fork to the D4 sensing junction. The servo arm and green LED provide visible feedback.</figcaption>
+          <figcaption>The assembled circuit with the fork clipped to the D4 sensing wire.</figcaption>
         </figure>
         <div class="copy-stack">
           <ul class="connection-list">
@@ -90,10 +90,10 @@
       <div class="media-copy media-copy--operation">
         <figure class="project-figure project-figure--gif">
           <img src="assets/a4-demo.gif" width="640" height="360" loading="lazy" alt="Animated demonstration of a hand touching and releasing the fork as the servo arm moves and the green LED switches on and off" />
-          <figcaption>Touching the fork lights the green LED and moves the servo arm. Releasing the fork turns the LED off and returns the servo arm to its resting position.</figcaption>
+          <figcaption>Touch and release test with the green LED and servo in view.</figcaption>
         </figure>
         <div class="copy-stack">
-          <p>The sketch commands <strong>90°</strong> while the fork is touched and <strong>0°</strong> when it is released. The 90° difference makes the motion visible in the recording. The LED follows the same decision as the servo.</p>
+          <p><strong>Touch</strong> turns the LED on and moves the servo to 90°.<br /><strong>Release</strong> turns the LED off and moves it back to 0°.</p>
         </div>
       </div>
     </section>
@@ -101,8 +101,8 @@
     <section class="code-section" id="firmware" aria-label="Firmware">
       <div class="code-section__intro">
         <p class="eyebrow">Firmware</p>
-        <p>The sketch sums <strong>30 sensing cycles</strong> per reading to reduce short-term variation. It compares the result to a threshold of <strong>100 library counts</strong>. The threshold determines whether the outputs switch on and can be checked against untouched and touched readings in the Serial Monitor.</p>
-        <p>The <strong>50 ms</strong> delay spaces successive decisions while keeping the response quick. Serial output runs at <strong>9600 baud</strong> for inspection. The capacitance reading comes from digital pin timing through the library.</p>
+        <p>Each reading combines <strong>30 cycles</strong> to reduce noise. A reading above <strong>100 counts</strong> triggers both outputs.</p>
+        <p>A <strong>50 ms</strong> pause keeps the response quick while spacing out readings. The Serial Monitor shows the readings at <strong>9600 baud</strong>.</p>
         <p>Library references:
           <a href="https://github.com/PaulStoffregen/CapacitiveSensor">CapacitiveSensor</a> and
           <a href="https://github.com/arduino-libraries/Servo">Arduino Servo</a>.
@@ -167,10 +167,10 @@ void loop() {
       <div class="a4-answers">
         <article>
           <h3>1. What does the servo signal on D9 look like?</h3>
-          <p>For the circuit in this question, the Uno sends a pulse from approximately 0 V to 5 V about every 20 ms. The loop keeps each angle for about 100 ms, so there are roughly five pulses at each width before it increases by one step. With the default Servo library limits, the high time grows from about 0.544 ms at 0° to 2.400 ms at 180°, while the pulse height stays the same. The 181 angle commands take about 18.1 s, then the next pass starts at 0°.</p>
+          <p>D9 pulses between 0 V and about 5 V. Pulse starts are about 20 ms apart. The pulse gets wider every 100 ms and returns to its shortest width at about 18.1 s.</p>
           <figure class="project-figure">
-            <img src="assets/a4-servo-waveform.svg" width="1000" height="530" loading="lazy" alt="Four time windows show 0 to 5 volt pulses every 20 milliseconds. The high pulse width increases from 0.54 to 1.47 to 2.40 milliseconds, then resets to 0.54 milliseconds." />
-            <figcaption>Predicted D9 voltage relative to GND for the question’s sweep. Each panel zooms into a different 60 ms window. Pulse starts are aligned for comparison.
+            <img src="assets/a4-servo-waveform.jpg" width="1799" height="916" loading="lazy" alt="Hand-drawn graph of D9 voltage over time, showing pulses widening from 0 to 180 degrees and narrowing again at about 18.1 seconds." />
+            <figcaption>Hand-drawn D9 voltage relative to GND. The sketch uses rounded example widths. The default Uno Servo library gives about 0.54, 1.47, and 2.40 ms at 0°, 90°, and 180°.
               <a href="https://github.com/arduino-libraries/Servo/blob/master/src/Servo.h">Default pulse limits</a> ·
               <a href="https://github.com/arduino-libraries/Servo/blob/master/src/avr/Servo.cpp">AVR angle-to-pulse mapping</a>
             </figcaption>
@@ -179,7 +179,7 @@ void loop() {
 
         <article>
           <h3>2. How can we handle a bad reading 1% of the time?</h3>
-          <p>Take three separate samples and use the median. If the signal stays roughly constant during the three samples, a single extreme bad value cannot pull the result outside the range of the other two.</p>
+          <p>Take three readings and keep the middle value. This filters out one extreme reading.</p>
           <pre class="code-block"><code>function readWithOutlierRejection():
     samples = []
     repeat 3 times:
@@ -191,7 +191,7 @@ void loop() {
 
         <article>
           <h3>3. How can we reduce random noise of ±10%?</h3>
-          <p>Use a moving average of the 10 most recent readings. If the noise is independent and centered around the true value, positive and negative errors tend to cancel. The tradeoff is a slower response to sudden changes.</p>
+          <p>Average the latest 10 readings. Random highs and lows tend to cancel, but sudden changes show up more slowly.</p>
           <pre class="code-block"><code>recent = empty queue
 
 repeat every 10 ms:
@@ -204,14 +204,7 @@ repeat every 10 ms:
 
         <article>
           <h3>4. How did I use AI?</h3>
-          <p>I used ChatGPT while planning the circuit, checking the sketch and troubleshooting the Arduino upload. I used it again to turn my own circuit drawings, photo, and video into this assignment page and to draft the waveform and filtering explanations.</p>
-          <ul class="a4-ai-log">
-            <li><strong>Prompt:</strong> “应该怎么搭建这个电路” (“How should I build this circuit?”), followed by “做成这样” (“Make it like this”) with a reference image. <strong>Output:</strong> an initial infrared-remote design, followed by a capacitive-touch design using the CapacitiveSensor and Servo libraries after I shared the reference.</li>
-            <li><strong>Prompt:</strong> “这个是代码 对吗” (“Is this code correct?”), with my sketch. <strong>Output:</strong> “两行 <code>#include</code> 缺了库名” (the two include lines were missing library names), with <code>&lt;Servo.h&gt;</code> and <code>&lt;CapacitiveSensor.h&gt;</code> as the corrections. When I shared the upload error, ChatGPT identified the old serial port and pointed me to the current one.</li>
-            <li><strong>Prompt:</strong> “你帮我画出来 不是这个示意图” (“Draw it for me”). <strong>Output:</strong> a draft circuit diagram for the earlier spoon design. The two schematic images on this page are my drawings of the final fork circuit.</li>
-            <li><strong>Prompt:</strong> “帮我根据作业要求，写代码，跟以前一样，写网站” (“Write the code and website following the assignment and my earlier pages”), with my build media and schematic photos. <strong>Output:</strong> this page, the linked Arduino sketch, the GIF converted from my video, and the D9 waveform figure.</li>
-          </ul>
-          <p>The upload check helped me separate a working compile from a serial connection problem. I used my own hand-drawn schematic and demo as the record of the build, including the fork and the resistor values I used.</p>
+          <p>I shared an Arduino upload error with ChatGPT. It helped me find the correct serial port, and the sketch uploaded after I switched ports.</p>
         </article>
       </div>
     </section>
