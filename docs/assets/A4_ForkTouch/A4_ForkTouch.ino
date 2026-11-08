@@ -5,12 +5,12 @@
 
 // Create a controller for the SG90 servo.
 Servo myServo;
-// Drive D2 through the 1 MΩ resistor and read the fork at D4.
+// Drive pin 2 through the 1 MΩ resistor and read the fork at pin 4.
 CapacitiveSensor touchSensor(2, 4);
 
-// Send the servo control pulses from D12.
+// Send the servo control pulses from pin 12.
 const int servoPin = 12;
-// Switch the green LED on D9 through its 330 Ω series resistor.
+// Switch the green LED on pin 9 through its 330 Ω series resistor.
 const int ledPin = 9;
 // Treat a reading above 100 library counts as a touch.
 const long threshold = 100;
@@ -18,9 +18,9 @@ const long threshold = 100;
 void setup() {
   // Print sensor readings to the Serial Monitor at 9600 baud.
   Serial.begin(9600);
-  // Set D9 as a digital output so it can switch the LED.
+  // Set pin 9 as a digital output so it can switch the LED.
   pinMode(ledPin, OUTPUT);
-  // Enable Servo library control of the signal wire on D12.
+  // Enable Servo library control of the signal wire on pin 12.
   myServo.attach(servoPin);
 }
 

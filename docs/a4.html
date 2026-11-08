@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#111312" />
   <title>Hana Li's Assignment 4: Libraries!</title>
   <link rel="stylesheet" href="style.css?v=7" />
-  <link rel="stylesheet" href="a4.css?v=2" />
+  <link rel="stylesheet" href="a4.css?v=3" />
 </head>
 <body class="detail-page a1-page a4-page">
   <main>
@@ -31,9 +31,9 @@
       </div>
       <p class="project-overview__text">CapacitiveSensor detects touch at the fork. Servo moves the SG90 to 90° on touch and back to 0° on release.</p>
       <dl class="project-facts">
-        <div><dt>01</dt><dd>Capacitive fork input on D4</dd></div>
+        <div><dt>01</dt><dd>Capacitive fork input on pin 4</dd></div>
         <div><dt>02</dt><dd>Libraries · CapacitiveSensor and Servo</dd></div>
-        <div><dt>02</dt><dd>Outputs · SG90 on D12 and green LED on D9</dd></div>
+        <div><dt>02</dt><dd>Outputs · SG90 on pin 12 and green LED on pin 9</dd></div>
       </dl>
     </section>
 
@@ -45,16 +45,16 @@
       <div class="media-copy media-copy--wide">
         <div class="a4-figures">
           <figure class="project-figure">
-            <img src="assets/a4-schematic-input.jpg" width="842" height="490" loading="lazy" alt="Hand-drawn schematic with a 1 megohm resistor between D2 and D4, and the fork connected to the D4 junction" />
-            <figcaption>D2 sends a signal through the 1 MΩ resistor. D4 reads the timing at the same point where the fork connects. Touching the fork adds capacitance, so the voltage at D4 takes longer to change.</figcaption>
+            <img src="assets/a4-schematic-input.jpg" width="842" height="490" loading="lazy" alt="Hand-drawn schematic with a 1 megohm resistor between pin 2 and pin 4, and the fork connected to the pin 4 junction" />
+            <figcaption>Pin 2 sends a signal through the 1 MΩ resistor. Pin 4 reads the timing at the same point where the fork connects. Touching the fork adds capacitance, so the voltage at pin 4 takes longer to change.</figcaption>
           </figure>
           <figure class="project-figure">
-            <img src="assets/a4-schematic-output.jpg" width="1097" height="621" loading="lazy" alt="Hand-drawn schematic of the SG90 on D12 with 5 volt power and ground, and the green LED on D9 through a 330 ohm resistor to ground" />
-            <figcaption>D12 sends the position signal to the SG90. The servo’s red wire connects to 5 V and its brown wire to ground. D9 drives the green LED through the 330 Ω resistor, and the LED and servo share the Uno’s ground.</figcaption>
+            <img src="assets/a4-schematic-output.jpg" width="1097" height="621" loading="lazy" alt="Hand-drawn schematic of the SG90 on pin 12 with 5 volt power and ground, and the green LED on pin 9 through a 330 ohm resistor to ground" />
+            <figcaption>Pin 12 sends the position signal to the SG90. The servo’s red wire connects to 5 V and its brown wire to ground. Pin 9 drives the green LED through the 330 Ω resistor, and the LED and servo share the Uno’s ground.</figcaption>
           </figure>
         </div>
         <div class="copy-stack">
-          <p><strong>1 MΩ sensing resistor.</strong> The large resistance slows the voltage change at D4, making the difference between touching and releasing the fork easier to measure.</p>
+          <p><strong>1 MΩ sensing resistor.</strong> The large resistance slows the voltage change at pin 4, making the difference between touching and releasing the fork easier to measure.</p>
           <p><strong>330 Ω LED resistor.</strong> The resistor limits LED current to about <em>(5 V − 2.1 V) / 330 Ω = 8.8 mA</em>, assuming a 2.1 V drop across the LED.</p>
         </div>
       </div>
@@ -68,13 +68,13 @@
       <div class="media-copy">
         <figure class="project-figure project-figure--dark">
           <img src="assets/a4-circuit.jpg" width="1600" height="1200" loading="lazy" alt="The assembled circuit, showing the Uno, breadboard, green LED, fork electrode, and SG90 servo" />
-          <figcaption>An alligator clip connects the metal fork to the D4 sensing wire. The green LED on the breadboard and the blue SG90 below it show when the Uno detects a touch.</figcaption>
+          <figcaption>The metal fork on the left clips to the sensing wire on pin 4. The green LED on the breadboard connects to pin 9 through a 330 Ω resistor. The blue SG90 below the breadboard receives its signal from pin 12. Touching the fork lights the LED and moves the servo arm to 90°. Releasing it turns the LED off and returns the arm to 0°.</figcaption>
         </figure>
         <div class="copy-stack">
           <ul class="connection-list">
-            <li><span>D2–D4</span>D2 → 1 MΩ → D4 junction → fork</li>
-            <li><span>D12</span>SG90 signal lead</li>
-            <li><span>D9</span>330 Ω → green LED anode</li>
+            <li><span>Pins 2–4</span>Pin 2 → 1 MΩ → pin 4 junction → fork</li>
+            <li><span>Pin 12</span>SG90 signal lead</li>
+            <li><span>Pin 9</span>330 Ω → green LED anode</li>
             <li><span>5 V</span>SG90 red lead</li>
             <li><span>GND</span>Uno ground, SG90 brown lead, and green LED cathode</li>
           </ul>
@@ -107,12 +107,12 @@
 
 <span class="code-comment">// Create a controller for the SG90 servo.</span>
 Servo myServo;
-<span class="code-comment">// Drive D2 through the 1 MΩ resistor and read the fork at D4.</span>
+<span class="code-comment">// Drive pin 2 through the 1 MΩ resistor and read the fork at pin 4.</span>
 CapacitiveSensor touchSensor(2, 4);
 
-<span class="code-comment">// Send the servo control pulses from D12.</span>
+<span class="code-comment">// Send the servo control pulses from pin 12.</span>
 const int servoPin = 12;
-<span class="code-comment">// Switch the green LED on D9 through its 330 Ω series resistor.</span>
+<span class="code-comment">// Switch the green LED on pin 9 through its 330 Ω series resistor.</span>
 const int ledPin = 9;
 <span class="code-comment">// Treat a reading above 100 library counts as a touch.</span>
 const long threshold = 100;
@@ -120,9 +120,9 @@ const long threshold = 100;
 void setup() {
 <span class="code-comment">  // Print sensor readings to the Serial Monitor at 9600 baud.</span>
   Serial.begin(9600);
-<span class="code-comment">  // Set D9 as a digital output so it can switch the LED.</span>
+<span class="code-comment">  // Set pin 9 as a digital output so it can switch the LED.</span>
   pinMode(ledPin, OUTPUT);
-<span class="code-comment">  // Enable Servo library control of the signal wire on D12.</span>
+<span class="code-comment">  // Enable Servo library control of the signal wire on pin 12.</span>
   myServo.attach(servoPin);
 }
 
@@ -157,10 +157,10 @@ void loop() {
       </div>
       <div class="a4-answers">
         <article>
-          <h3>1. What does the servo signal on D9 look like?</h3>
-          <p>D9 sends 0–5 V pulses about every 20 ms. Pulse width increases every 100 ms and resets after about 18.1 s.</p>
+          <h3>1. What does the servo signal on pin 9 look like?</h3>
+          <p>Pin 9 sends 0–5 V pulses about every 20 ms. Pulse width increases every 100 ms and resets after about 18.1 s.</p>
           <figure class="project-figure">
-            <img src="assets/a4-servo-waveform.jpg" width="1799" height="916" loading="lazy" alt="Hand-drawn graph of D9 voltage over time, showing pulses widening from 0 to 180 degrees and narrowing again at about 18.1 seconds." />
+            <img src="assets/a4-servo-waveform.jpg" width="1799" height="916" loading="lazy" alt="Hand-drawn graph of pin 9 voltage over time, showing pulses widening from 0 to 180 degrees and narrowing again at about 18.1 seconds." />
           </figure>
         </article>
 

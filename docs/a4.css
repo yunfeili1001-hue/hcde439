@@ -40,3 +40,12 @@
 .a4-page .project-figure img {
   height: auto;
 }
+.a4-figures figcaption,
+.a4-page .project-figure--dark figcaption {
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  line-height: 1.6;
+}
+
+.a4-page .project-figure--dark figcaption {
+  color: rgba(255, 255, 255, 0.8);
+}
