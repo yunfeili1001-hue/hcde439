@@ -11,6 +11,9 @@
     .a5-link { color:inherit; text-underline-offset:.2em; }
     .a5-question p + p, .a5-question figure, .a5-question pre, .a5-question ul { margin-top:1rem; }
     .a5-question figure { max-width:850px; }
+    .a5-motor-copy p { margin:1rem 0 0; font-size:clamp(1.125rem, 1.45vw, 1.3rem); line-height:1.55; }
+    .a5-motor-figure { align-self:start; }
+    .a5-question .a5-motor-figure { margin-top:0; }
     .a5-question pre { white-space:pre-wrap; }
     .a5-code { max-height:none; min-width:0; overflow-x:auto; }
     .code-section > * { min-width:0; }
@@ -52,7 +55,7 @@
       <div class="media-copy media-copy--wide">
         <figure class="project-figure">
           <a href="assets/a5-schematic.jpg"><img src="assets/a5-schematic.jpg" alt="Hand-drawn schematic showing the metal fork touch sensor, three resistors, and 12 V LED strip circuit."></a>
-          <figcaption>The 1 MΩ resistor gives the library a measurable RC timing change. The 220 Ω resistor limits transient gate charging current and the 10 kΩ pull-down keeps the MOSFET off while D9 is high impedance. The handwritten S and D labels are swapped: the upper terminal connected to the LED strip is drain (D), and the lower terminal connected to adapter negative is source (S).</figcaption>
+          <figcaption>The 1 MΩ resistor gives the library a measurable RC timing change. The 220 Ω resistor limits transient gate charging current and the 10 kΩ pull-down keeps the MOSFET off while D9 is high impedance. The drain (D) connects to the LED strip, and the source (S) connects to the adapter’s negative terminal.</figcaption>
         </figure>
         <div class="copy-stack">
           <p>The strip positive lead goes to +12 V. Its negative lead connects to the drain (pin 2), and the source (pin 3) returns to adapter negative and Arduino ground.</p>
@@ -85,9 +88,9 @@
             <source media="(prefers-reduced-motion: reduce)" srcset="assets/a5-poster.jpg">
             <img src="assets/a5-demo.gif" loading="lazy" alt="Repeated touches on the metal fork brighten the LED strip at the left of the frame, and releasing the fork dims it">
           </picture>
-          <figcaption>Animated recording of the assembled circuit. The fork is on the right and the LED strip is on the left. <a class="a5-link" href="assets/a5-demo.gif">Open the GIF</a>.</figcaption>
+          <figcaption>Animated recording of the assembled circuit. The fork is on the right and the LED strip is on the left.</figcaption>
         </figure>
-        <div class="copy-stack"><p>Holding the fork increases the PWM value by 5 each update, up to 255. Releasing the fork decreases it by 5 each update, down to zero.</p><p>A full ramp takes 51 updates, or about 0.77 seconds of programmed delays plus sensor and serial processing time.</p></div>
+        <div class="copy-stack"><p>Holding the fork increases the PWM value by 5 each update, up to 255. Releasing the fork decreases it by 5 each update, down to zero.</p></div>
       </div>
     </section>
 
@@ -164,10 +167,9 @@ void loop() {
     <section id="calculations" class="project-section project-section--paper" aria-labelledby="calculation-title">
       <div class="project-section__heading"><p class="section-number">04</p><div><p class="eyebrow eyebrow--dark">Analysis</p><h2 id="calculation-title">Voltage and current</h2></div></div>
       <div class="copy-stack">
-        <p>I used a 1 MΩ resistor between D2 and D4 so the touch library could detect small changes in the fork’s capacitance. The time constant is τ = RC. For example, if touch adds 20 pF, a 1 MΩ resistor gives a change of 20 µs, compared with 2 µs for a 100 kΩ resistor. When there is a full 5 V across the resistor, the peak current is about 5 V / 1 MΩ = 5 µA. My readings were around 200 at rest and 700–800 during touch, so I set the threshold to 450.</p>
-        <p>I used a 220 Ω series resistor to limit the brief current that charges the MOSFET gate when D9 switches high. A target of about 25 mA gives 5 V / 0.025 A = 200 Ω. At 220 Ω, the ideal initial current is about 5 V / 220 Ω = 22.7 mA. Using the datasheet’s 1.7 nF input capacitance as a rough model gives a time constant of 220 Ω × 1.7 nF ≈ 0.37 µs. Actual switching time depends on the gate charge and circuit conditions. The 10 kΩ pull-down holds the gate near 0 V while D9 is a high-impedance input. To keep steady current near or below 0.5 mA when D9 is high, the pull-down needs to be at least 5 V / 0.0005 A − 220 Ω = 9.78 kΩ. With 10 kΩ, the steady current is about 5 V / 10.22 kΩ = 0.49 mA, and the gate voltage is about 0.49 mA × 10 kΩ = 4.89 V.</p>
-        <p>At full brightness, the LED strip sees about 12 V minus the voltage drop across the MOSFET. When the strip is off, its current is approximately zero and the drain can sit near +12 V. If the strip’s rated power is P watts, its full-on current I<sub>on</sub> is approximately P / 12 V. A PWM value of 128 gives about 50% duty cycle, so the average strip current is about half of I<sub>on</sub>. The MOSFET carries the full I<sub>on</sub> during each on interval.</p>
-        <p>The strip’s rated wattage and measured full-on current are unavailable. Using the reference adapter’s 2 A rating as an example and the IRLZ44N datasheet’s 35 mΩ on-resistance at 4 V gate drive, the estimated voltage drop at full duty is 2 A × 0.035 Ω = 0.07 V and the conduction loss is (2 A)² × 0.035 Ω = 0.14 W. The actual current depends on the strip. The adapter, wiring, and operating temperature limit the usable current.</p>
+        <p>I used 1 MΩ between D2 and D4 to make small changes in the fork’s capacitance easier to detect. Since τ = RC, an example change of 20 pF adds 20 µs to the time constant. With 5 V across the resistor, the peak current is 5 V / 1 MΩ = 5 µA.</p>
+        <p>I used 220 Ω in series with the MOSFET gate to limit the brief charging current when D9 goes high. For a target of about 25 mA, 5 V / 25 mA = 200 Ω. With 220 Ω, the ideal peak is 5 V / 220 Ω ≈ 22.7 mA. The 10 kΩ pull-down holds the gate near 0 V at startup. To keep steady current below 0.5 mA when D9 is high, the pull-down needs to be at least 5 V / 0.5 mA − 220 Ω = 9.78 kΩ. With 10 kΩ, the steady current is about 0.49 mA and the gate voltage is about 4.89 V.</p>
+        <p>At full brightness, the LED strip sees close to 12 V. When off, the strip current is close to zero and the drain can sit near 12 V. The strip’s full-on current can be estimated by dividing its rated power by 12 V. The rated power and measured current are unavailable.</p>
       </div>
     </section>
 
@@ -181,10 +183,12 @@ void loop() {
       </article>
       <article class="question a5-question">
         <div class="question__number">02</div><div class="question__body">
-          <h3>DC motor with a flyback diode</h3>
-          <figure class="project-figure">
+          <div class="a5-motor-copy">
+            <h3>DC motor with a flyback diode</h3>
+            <p>The diode’s banded cathode faces +12 V. Its anode connects to the drain so motor current can recirculate when the MOSFET switches off. A 100 µF bulk capacitor supports the motor supply during load changes. A 100 nF ceramic capacitor bypasses higher-frequency noise.</p>
+          </div>
+          <figure class="project-figure a5-motor-figure">
             <a href="assets/a5-motor.jpg"><img src="assets/a5-motor.jpg" loading="lazy" alt="Arduino D9 drives an IRLZ44N that switches a DC motor. A flyback diode spans the motor, and two capacitors connect from 12 volts to ground."></a>
-            <figcaption>The diode’s banded cathode faces +12 V. Its anode connects to the drain so motor current can recirculate when the MOSFET switches off. A 100 µF bulk capacitor supports the motor supply during load changes. A 100 nF ceramic capacitor bypasses higher-frequency noise.</figcaption>
           </figure>
           <p>Example parts with documentation</p>
           <ul>
@@ -197,10 +201,12 @@ void loop() {
       </article>
       <article class="question a5-question">
         <div class="question__number">03</div><div class="question__body">
-          <h3>Two motors with an L293D</h3>
-          <figure class="project-figure">
+          <div class="a5-motor-copy">
+            <h3>Two motors with an L293D</h3>
+            <p>The Uno supplies 5 V to pin 16 for logic. An external 6 V supply powers pin 8 and the two motors. Pins 4, 5, 12 and 13 share Arduino and supply ground.</p>
+          </div>
+          <figure class="project-figure a5-motor-figure">
             <a href="assets/a5-dual-motor.jpg"><img src="assets/a5-dual-motor.jpg" loading="lazy" alt="Arduino controls the two L293D enable pins and four direction inputs. Motors connect across outputs 3 and 6, and 11 and 14. Logic and motor supplies share ground."></a>
-            <figcaption>The Uno supplies 5 V to pin 16 for logic. An external 6 V supply powers pin 8 and the two motors. Pins 4, 5, 12 and 13 share Arduino and supply ground.</figcaption>
           </figure>
           <p>Two 6 V Pololu #992 motors are an example load. Their specified stall current is about 0.36 A each, below the L293D’s 0.6 A continuous per-channel rating. The driver’s output voltage drop reduces the voltage across the motor. <a class="a5-link" href="https://www.ti.com/lit/ds/symlink/l293d.pdf">TI L293D datasheet</a> · <a class="a5-link" href="https://www.pololu.com/product/992">Pololu #992 motor specifications</a>.</p>
           <pre><code>// Configure the two PWM enables and four direction signals as outputs.
