@@ -167,7 +167,7 @@ void loop() {
     <section id="calculations" class="project-section project-section--paper" aria-labelledby="calculation-title">
       <div class="project-section__heading"><p class="section-number">04</p><div><p class="eyebrow eyebrow--dark">Analysis</p><h2 id="calculation-title">Voltage and current</h2></div></div>
       <div class="copy-stack">
-        <p>I used 1 MΩ between D2 and D4 to make small changes in the fork’s capacitance easier to detect. Since τ = RC, an example change of 20 pF adds 20 µs to the time constant. With 5 V across the resistor, the peak current is 5 V / 1 MΩ = 5 µA.</p>
+        <p>I used 1 MΩ between D2 and D4 to make small changes in the fork’s capacitance easier to detect. With 5 V across the resistor, the peak current is 5 V / 1 MΩ = 5 µA.</p>
         <p>I used 220 Ω in series with the MOSFET gate to limit the brief charging current when D9 goes high. For a target of about 25 mA, 5 V / 25 mA = 200 Ω. With 220 Ω, the ideal peak is 5 V / 220 Ω ≈ 22.7 mA. The 10 kΩ pull-down holds the gate near 0 V at startup. To keep steady current below 0.5 mA when D9 is high, the pull-down needs to be at least 5 V / 0.5 mA − 220 Ω = 9.78 kΩ. With 10 kΩ, the steady current is about 0.49 mA and the gate voltage is about 4.89 V.</p>
         <p>At full brightness, the LED strip sees close to 12 V. When off, the strip current is close to zero and the drain can sit near 12 V. The strip’s full-on current can be estimated by dividing its rated power by 12 V. The rated power and measured current are unavailable.</p>
       </div>
@@ -178,7 +178,7 @@ void loop() {
       <article class="question a5-question">
         <div class="question__number">01</div><div class="question__body">
           <h3>Maximum current between pins 2 and 3</h3>
-          <p>My MOSFET is the IRLZ44N. Pin 2 is drain and pin 3 is source. Its absolute maximum continuous drain current is <strong>47 A</strong> at a case temperature of 25 °C and V<sub>GS</sub> = 10 V. The pulsed rating is 160 A subject to the pulse and junction-temperature conditions in the datasheet. The 47 A figure assumes controlled case temperature and higher gate drive than the Uno provides.</p>
+          <p>My MOSFET is the IRLZ44N. Pin 2 is drain and pin 3 is source. Its absolute maximum continuous drain current is <strong>47 A</strong> at a case temperature of 25 °C and V<sub>GS</sub> = 10 V.</p>
         </div>
       </article>
       <article class="question a5-question">
@@ -208,7 +208,6 @@ void loop() {
           <figure class="project-figure a5-motor-figure">
             <a href="assets/a5-dual-motor.jpg"><img src="assets/a5-dual-motor.jpg" loading="lazy" alt="Arduino controls the two L293D enable pins and four direction inputs. Motors connect across outputs 3 and 6, and 11 and 14. Logic and motor supplies share ground."></a>
           </figure>
-          <p>Two 6 V Pololu #992 motors are an example load. Their specified stall current is about 0.36 A each, below the L293D’s 0.6 A continuous per-channel rating. The driver’s output voltage drop reduces the voltage across the motor. <a class="a5-link" href="https://www.ti.com/lit/ds/symlink/l293d.pdf">TI L293D datasheet</a> · <a class="a5-link" href="https://www.pololu.com/product/992">Pololu #992 motor specifications</a>.</p>
           <pre><code>// Configure the two PWM enables and four direction signals as outputs.
 setup: EN_A = D5, EN_B = D6, A1 = D2, A2 = D3, B1 = D4, B2 = D7
 
