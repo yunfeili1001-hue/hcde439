@@ -16,7 +16,6 @@
     .code-section > * { min-width:0; }
     @media (max-width:900px) { .code-section { grid-template-columns:minmax(0,1fr); } }
     @media (max-width:400px) { .project-hero h1 { font-size:clamp(2.45rem, 15vw, 3.4rem); } }
-    .a5-download { margin-top:1rem; }
   </style>
 </head>
 <body class="detail-page a1-page">
@@ -94,10 +93,7 @@
 
     <section id="firmware" class="project-section project-section--dark code-section" aria-labelledby="firmware-title">
       <div class="code-section__intro">
-        <p class="eyebrow">Firmware</p><h2 id="firmware-title">Arduino code</h2>
-        <p>Ten raw capacitive samples are compared with a threshold of 450. The touch readings observed while tuning were around 200 at rest and 700–800 during contact.</p>
-        <p>D9 starts as a high-impedance input at reset. The hardware pull-down holds the gate near 0 V until the firmware sets D9 as an output with its output latch LOW.</p>
-        <p class="a5-download"><a class="a5-link" href="assets/a5-touch/a5-touch.ino" download>Download the Arduino sketch</a>.</p>
+        <h2 id="firmware-title">Arduino code</h2>
       </div>
       <pre class="a5-code"><code>// Import the library that measures capacitive touch.
 #include &lt;CapacitiveSensor.h&gt;
@@ -180,14 +176,14 @@ void loop() {
       <article class="question a5-question">
         <div class="question__number">01</div><div class="question__body">
           <h3>Maximum current between pins 2 and 3</h3>
-          <p>My MOSFET is the IRLZ44N. Pin 2 is drain and pin 3 is source. Its absolute maximum continuous drain current is <strong>47 A</strong> at a case temperature of 25 °C and V<sub>GS</sub> = 10 V. The pulsed rating is 160 A subject to the pulse and junction-temperature conditions in the datasheet. The 47 A figure assumes controlled case temperature and higher gate drive than the Uno provides. <a class="a5-link" href="https://www.infineon.com/assets/row/public/documents/24/49/infineon-irlz44n-datasheet-en.pdf">Infineon IRLZ44N datasheet</a>.</p>
+          <p>My MOSFET is the IRLZ44N. Pin 2 is drain and pin 3 is source. Its absolute maximum continuous drain current is <strong>47 A</strong> at a case temperature of 25 °C and V<sub>GS</sub> = 10 V. The pulsed rating is 160 A subject to the pulse and junction-temperature conditions in the datasheet. The 47 A figure assumes controlled case temperature and higher gate drive than the Uno provides.</p>
         </div>
       </article>
       <article class="question a5-question">
         <div class="question__number">02</div><div class="question__body">
           <h3>DC motor with a flyback diode</h3>
           <figure class="project-figure">
-            <a href="assets/a5-motor.svg"><img src="assets/a5-motor.svg" loading="lazy" alt="Arduino D9 drives an IRLZ44N that switches a DC motor. A flyback diode spans the motor, and two capacitors connect from 12 volts to ground."></a>
+            <a href="assets/a5-motor.jpg"><img src="assets/a5-motor.jpg" loading="lazy" alt="Arduino D9 drives an IRLZ44N that switches a DC motor. A flyback diode spans the motor, and two capacitors connect from 12 volts to ground."></a>
             <figcaption>The diode’s banded cathode faces +12 V. Its anode connects to the drain so motor current can recirculate when the MOSFET switches off. A 100 µF bulk capacitor supports the motor supply during load changes. A 100 nF ceramic capacitor bypasses higher-frequency noise.</figcaption>
           </figure>
           <p>Example parts with documentation</p>
@@ -203,7 +199,7 @@ void loop() {
         <div class="question__number">03</div><div class="question__body">
           <h3>Two motors with an L293D</h3>
           <figure class="project-figure">
-            <a href="assets/a5-dual-motor.svg"><img src="assets/a5-dual-motor.svg" loading="lazy" alt="Arduino controls the two L293D enable pins and four direction inputs. Motors connect across outputs 3 and 6, and 11 and 14. Logic and motor supplies share ground."></a>
+            <a href="assets/a5-dual-motor.jpg"><img src="assets/a5-dual-motor.jpg" loading="lazy" alt="Arduino controls the two L293D enable pins and four direction inputs. Motors connect across outputs 3 and 6, and 11 and 14. Logic and motor supplies share ground."></a>
             <figcaption>The Uno supplies 5 V to pin 16 for logic. An external 6 V supply powers pin 8 and the two motors. Pins 4, 5, 12 and 13 share Arduino and supply ground.</figcaption>
           </figure>
           <p>Two 6 V Pololu #992 motors are an example load. Their specified stall current is about 0.36 A each, below the L293D’s 0.6 A continuous per-channel rating. The driver’s output voltage drop reduces the voltage across the motor. <a class="a5-link" href="https://www.ti.com/lit/ds/symlink/l293d.pdf">TI L293D datasheet</a> · <a class="a5-link" href="https://www.pololu.com/product/992">Pololu #992 motor specifications</a>.</p>
