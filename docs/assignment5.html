@@ -8,8 +8,7 @@
   <link rel="stylesheet" href="style.css?v=7">
   <style>
     .a5-video { display:block; width:100%; height:100%; object-fit:contain; background:#111312; }
-    .a5-nav { display:flex; flex-wrap:wrap; gap:.7rem 1.2rem; margin-top:1.5rem; }
-    .a5-nav a, .a5-link { color:inherit; text-underline-offset:.2em; }
+    .a5-link { color:inherit; text-underline-offset:.2em; }
     .a5-question p + p, .a5-question figure, .a5-question pre, .a5-question ul { margin-top:1rem; }
     .a5-question figure { max-width:850px; }
     .a5-question pre { white-space:pre-wrap; }
@@ -29,9 +28,6 @@
           <p class="eyebrow">HCDE 439 · Assignment 05 · Hana Li</p>
           <h1 id="page-title">High(er) voltage and transistors!</h1>
           <p class="project-hero__intro">A metal fork senses touch and fades a 12 V LED strip through an N-channel MOSFET.</p>
-          <nav class="a5-nav" aria-label="On this page">
-            <a href="#schematic">Schematic</a><a href="#circuit">Circuit</a><a href="#operation">Demo</a><a href="#firmware">Code</a><a href="#calculations">Calculations</a><a href="#questions">Questions</a>
-          </nav>
         </div>
         <figure class="project-hero__media">
           <video class="a5-video" controls playsinline preload="metadata" poster="assets/a5-poster.jpg" aria-label="Touch-controlled LED strip demonstration">
@@ -56,8 +52,8 @@
       <div class="project-section__heading"><p class="section-number">01</p><div><p class="eyebrow eyebrow--dark">Plan</p><h2 id="schematic-title">Circuit schematic</h2></div></div>
       <div class="media-copy media-copy--wide">
         <figure class="project-figure">
-          <a href="assets/a5-schematic.svg"><img src="assets/a5-schematic.svg" alt="D2 feeds D4 through 1 megohm. The fork connects to D4. D9 drives an IRLZ44N through 220 ohms. A 10 kilohm resistor pulls the gate to ground. The MOSFET switches the LED strip’s return to the 12 volt supply."></a>
-          <figcaption>The 1 MΩ resistor gives the library a measurable RC timing change. The 220 Ω resistor limits transient gate charging current and the 10 kΩ pull-down keeps the MOSFET off while D9 is high impedance.</figcaption>
+          <a href="assets/a5-schematic.jpg"><img src="assets/a5-schematic.jpg" alt="Hand-drawn schematic showing the metal fork touch sensor, three resistors, and 12 V LED strip circuit."></a>
+          <figcaption>The 1 MΩ resistor gives the library a measurable RC timing change. The 220 Ω resistor limits transient gate charging current and the 10 kΩ pull-down keeps the MOSFET off while D9 is high impedance. The handwritten S and D labels are swapped: the upper terminal connected to the LED strip is drain (D), and the lower terminal connected to adapter negative is source (S).</figcaption>
         </figure>
         <div class="copy-stack">
           <p>The strip positive lead goes to +12 V. Its negative lead connects to the drain (pin 2), and the source (pin 3) returns to adapter negative and Arduino ground.</p>
@@ -172,13 +168,10 @@ void loop() {
     <section id="calculations" class="project-section project-section--paper" aria-labelledby="calculation-title">
       <div class="project-section__heading"><p class="section-number">04</p><div><p class="eyebrow eyebrow--dark">Analysis</p><h2 id="calculation-title">Voltage and current</h2></div></div>
       <div class="copy-stack">
-        <div class="equations">
-          <p><span>Touch input · 1 MΩ</span>A full 5 V across the sensing resistor would give 5 V / 1 MΩ = 5 µA. The receive node charges through the resistor and the timing depends on the fork’s capacitance.</p>
-          <p><span>Gate drive · 220 Ω and 10 kΩ</span>At the start of a rising edge, the ideal peak is 5 V / 220 Ω ≈ 22.7 mA for a brief charging transient. When the gate settles, the divider draws 5 V / 10.22 kΩ ≈ 0.49 mA and the gate sits near 4.89 V.</p>
-          <p><span>Load · 12 V nominal</span>At full brightness, the strip sees approximately 12 V minus the small MOSFET drop. When off, strip current is approximately zero and the drain can sit near +12 V through the load.</p>
-          <p><span>Strip current and PWM</span>With a rated strip power of P watts, I<sub>on</sub> ≈ P / 12 V. At PWM value 128, the duty cycle is about 50%, so the average load current is approximately 0.5 × I<sub>on</sub>. The MOSFET still carries I<sub>on</sub> during each on interval.</p>
-        </div>
-        <p>The strip’s rated wattage and measured full-on current are unavailable. The reference adapter’s 2 A rating gives a supply budget. At that budget, the IRLZ44N’s 35 mΩ datasheet on-resistance at 4 V gate drive gives an estimated 0.07 V drop and 0.14 W of conduction loss at full duty, using V = IR and P = I²R. The actual current depends on the strip. The adapter, wiring and operating temperature limit the usable current.</p>
+        <p>I used a 1 MΩ resistor between D2 and D4 so the touch library could detect small changes in the fork’s capacitance. The time constant is τ = RC. For example, if touch adds 20 pF, a 1 MΩ resistor gives a change of 20 µs, compared with 2 µs for a 100 kΩ resistor. When there is a full 5 V across the resistor, the peak current is about 5 V / 1 MΩ = 5 µA. My readings were around 200 at rest and 700–800 during touch, so I set the threshold to 450.</p>
+        <p>I used a 220 Ω series resistor to limit the brief current that charges the MOSFET gate when D9 switches high. A target of about 25 mA gives 5 V / 0.025 A = 200 Ω. At 220 Ω, the ideal initial current is about 5 V / 220 Ω = 22.7 mA. Using the datasheet’s 1.7 nF input capacitance as a rough model gives a time constant of 220 Ω × 1.7 nF ≈ 0.37 µs. Actual switching time depends on the gate charge and circuit conditions. The 10 kΩ pull-down holds the gate near 0 V while D9 is a high-impedance input. To keep steady current near or below 0.5 mA when D9 is high, the pull-down needs to be at least 5 V / 0.0005 A − 220 Ω = 9.78 kΩ. With 10 kΩ, the steady current is about 5 V / 10.22 kΩ = 0.49 mA, and the gate voltage is about 0.49 mA × 10 kΩ = 4.89 V.</p>
+        <p>At full brightness, the LED strip sees about 12 V minus the voltage drop across the MOSFET. When the strip is off, its current is approximately zero and the drain can sit near +12 V. If the strip’s rated power is P watts, its full-on current I<sub>on</sub> is approximately P / 12 V. A PWM value of 128 gives about 50% duty cycle, so the average strip current is about half of I<sub>on</sub>. The MOSFET carries the full I<sub>on</sub> during each on interval.</p>
+        <p>The strip’s rated wattage and measured full-on current are unavailable. Using the reference adapter’s 2 A rating as an example and the IRLZ44N datasheet’s 35 mΩ on-resistance at 4 V gate drive, the estimated voltage drop at full duty is 2 A × 0.035 Ω = 0.07 V and the conduction loss is (2 A)² × 0.035 Ω = 0.14 W. The actual current depends on the strip. The adapter, wiring, and operating temperature limit the usable current.</p>
       </div>
     </section>
 
@@ -236,13 +229,10 @@ PWM(EN_A, 0), PWM(EN_B, 0)</code></pre>
       <article class="question a5-question">
         <div class="question__number">04</div><div class="question__body">
           <h3>AI use and reflection</h3>
-          <p>I used ChatGPT while debugging the LED strip and Codex while preparing the assignment webpage.</p>
           <ul>
-            <li><strong>Debugging prompt.</strong> I asked how the 12 V strip should be connected when it stayed lit with the Arduino disconnected. ChatGPT suggested putting the MOSFET in the strip’s ground return and using a common ground.</li>
-            <li><strong>Firmware prompt.</strong> After fixing the circuit, I asked for the complete sketch. ChatGPT produced the D2/D4 CapacitiveSensor and D9 PWM fade loop shown above.</li>
-            <li><strong>Documentation prompt.</strong> I asked Codex to build the site from the course requirements, prior page and wiring image. Its output included this page, the three schematics and the GIF converted from my recording.</li>
+            <li><strong>Debugging the Arduino code.</strong> I used ChatGPT to debug the capacitive touch readings and the PWM fade logic. It helped me use the Serial Monitor to compare the sensor reading with the brightness value and check what the code was sending to the LED strip.</li>
+            <li><strong>Building the website.</strong> I used Codex to build this assignment page and present the circuit photo, schematics, Arduino code, and demonstration GIF.</li>
           </ul>
-          <p>The always-on symptom helped me separate the power-path problem from the touch threshold. When the firmware reported zero PWM, I had to trace the strip’s return path to see how current could still flow.</p>
         </div>
       </article>
     </section>
